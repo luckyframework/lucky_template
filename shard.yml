@@ -1,0 +1,9 @@
+name: lucky_template
+version: 0.1.0
+
+authors:
+  - Michael Wagner <mdwranger@gmail.com>
+
+crystal: ">= 1.0.0"
+
+license: MIT
