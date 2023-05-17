@@ -27,12 +27,16 @@ module LuckyTemplate
       @files << folder
     end
 
+    protected def files
+      @files
+    end
+
     protected def write_to_disk!(path : Path) : Nil
       write_folder_to_disk!(path, self)
     end
 
     protected def write_file_to_disk!(path : Path, file : File) : Nil
-      File.open(path.join(file.name), "w") do |io|
+      ::File.open(path.join(file.name), "w") do |io|
         file.to_s(io)
       end
     end

@@ -1,0 +1,11 @@
+name: <%= @name %>
+version: 0.1.0
+
+authors:
+<% @authors.each do |author| -%>
+  - <%= author["fullname"] %> <%= author["email"] %>
+<% end -%>
+
+crystal: ">= 1.0.0"
+
+license: MIT

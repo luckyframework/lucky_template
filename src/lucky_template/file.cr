@@ -3,7 +3,8 @@ module LuckyTemplate
     abstract def to_file(io : IO) : Nil
   end
 
-  alias FileType = String | Fileable | Nil
+  alias FileProc = IO ->
+  alias FileType = String | Fileable | FileProc | Nil
 
   class File
     getter name : String
@@ -12,11 +13,13 @@ module LuckyTemplate
     end
 
     def to_s(io : IO) : Nil
-      case @file
+      case file = @file
       in Fileable
-        @file.to_file(io)
+        file.to_file(io)
+      in FileProc
+        file.call(io)
       in String, Nil
-        @file.to_s(io)
+        file.to_s(io)
       end
     end
   end
