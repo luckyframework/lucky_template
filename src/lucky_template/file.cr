@@ -4,12 +4,14 @@ module LuckyTemplate
   end
 
   alias FileProc = IO ->
+
   alias FileType = String | Fileable | FileProc | Nil
 
   class File
     getter name : String
 
     def initialize(@name, @file : FileType)
+      raise "Invalid filename" if @name.empty?
     end
 
     def to_s(io : IO) : Nil

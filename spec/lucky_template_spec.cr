@@ -33,7 +33,7 @@ describe LuckyTemplate do
     cwd = Path.new(FileUtils.pwd)
 
     f = LuckyTemplate.create_folder("src") do |folder|
-      folder.add_file("example.txt", nil)
+      folder.add_file("example.txt")
     end
     LuckyTemplate.write!(cwd, f)
 
@@ -44,10 +44,19 @@ describe LuckyTemplate do
     cwd = Path.new(FileUtils.pwd)
 
     LuckyTemplate.write!(cwd.join("src")) do |folder|
-      folder.add_file("example2.txt", nil)
+      folder.add_file("example.txt")
+      folder.add_file("example2.txt") do |io|
+        io << "hello world"
+      end
+      folder.add_file("example3.txt", "world hello")
     end
 
+    File.exists?(cwd.join("src", "example.txt")).should eq(true)
     File.exists?(cwd.join("src", "example2.txt")).should eq(true)
+    File.exists?(cwd.join("src", "example3.txt")).should eq(true)
+
+    File.read(cwd.join("src", "example2.txt")).should eq("hello world")
+    File.read(cwd.join("src", "example3.txt")).should eq("world hello")
   end
 
   it "writes folder to disk with template file", tags: "only" do

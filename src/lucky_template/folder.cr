@@ -9,8 +9,20 @@ module LuckyTemplate
       raise "Invalid folder name" if @name.empty?
     end
 
-    def add_file(name : String, file : FileType) : Nil
-      add_file(File.new(name, file))
+    def add_file(name : String, content : String) : Nil
+      add_file(File.new(name, content))
+    end
+
+    def add_file(name : String, klass : Fileable) : Nil
+      add_file(File.new(name, klass))
+    end
+
+    def add_file(name : String, &proc : FileProc) : Nil
+      add_file(File.new(name, proc))
+    end
+
+    def add_file(name : String) : Nil
+      add_file(File.new(name, nil))
     end
 
     def add_file(file : File) : Nil
