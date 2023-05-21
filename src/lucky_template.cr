@@ -4,52 +4,38 @@ require "./lucky_template/*"
 module LuckyTemplate
   extend self
 
-  # Creates a new `LuckyTemplate::Folder` with _name_ and yields it
-  def create_folder(name : String, & : Folder ->) : Folder
-    folder = Folder.new(name)
-    folder.in_use do
-      yield folder
+  def create_parent_folder(& : Folder ->) : Folder
+    parent_folder = Folder.new
+    parent_folder.in_use do
+      yield parent_folder
     end
-    folder
+    parent_folder
   end
 
-  # Creates a new `LuckyTemplate::Folder` with _name_
-  def create_folder(name : String) : Folder
-    create_folder(name) { }
-  end
-
-  # Writes _folder_ to disk at _location_
   def write!(location : Path, folder : Folder) : Nil
-    path = location.expand
-    Dir.mkdir_p(path)
-    folder.write_to_disk!(path)
+    Dir.mkdir_p(location)
+    folder.write_to_disk!(location)
   end
 
-  # Writes yielded _folder_ to _location_ dirname, using _location_ basename
-  # as name of _folder_
-  def write!(location : Path, & : Folder ->) : Nil
-    path = location.expand
-    dirname = Path.new(path.dirname)
-    Dir.mkdir_p(dirname)
-    folder = Folder.new(path.basename)
-    folder.in_use do
-      yield folder
+  # Same as `#create_parent_folder` and `#write!`
+  def write!(location : Path, & : Folder ->) : Folder
+    folder = create_parent_folder do |parent_folder|
+      yield parent_folder
     end
-    folder.write_to_disk!(dirname)
+    write!(location, folder)
+    folder
   end
 
   # Validates _folder_ at _location_ contains the same files and folders
   #
   # Raises `::File::NotFoundError` if either a file or folder does not exist
   def validate!(location : Path, folder : Folder) : Bool
-    path = location.expand
-    folder.validate!(path)
+    folder.validate!(location)
   end
 
   # Validates _folder_ at _location_ contains the same files and folders
   def validate?(location : Path, folder : Folder) : Bool
-    path = location.expand
-    folder.validate?(path)
+    folder.validate?(location)
   end
 
   def snapshot_files(folder : Folder)
@@ -65,15 +51,15 @@ module LuckyTemplate
     def initialize(@location : Path)
     end
 
-    def match(actual_value) : Bool
+    def match(actual_value : Folder) : Bool
       LuckyTemplate.validate?(@location, actual_value)
     end
 
-    def failure_message(actual_value) : String
+    def failure_message(actual_value : Folder) : String
       "Expected: All files and folders within Folder to exist"
     end
 
-    def negative_failure_message(actual_value) : String
+    def negative_failure_message(actual_value : Folder) : String
       "Expected: All files and folders within Folder not to exist"
     end
   end

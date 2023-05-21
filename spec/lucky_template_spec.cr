@@ -1,23 +1,4 @@
 require "./spec_helper"
-require "ecr"
-
-module LuckyTemplateSpec
-  class ShardYml
-    include LuckyTemplate::Fileable
-
-    @name : String
-    @authors = [] of Hash(String, String)
-
-    def initialize(@name, @authors)
-    end
-
-    def to_file(io : IO) : Nil
-      to_s(io)
-    end
-
-    ECR.def_to_s "#{__DIR__}/fixtures/shard.yml.ecr"
-  end
-end
 
 describe LuckyTemplate do
   around_each do |example|
@@ -29,60 +10,13 @@ describe LuckyTemplate do
     end
   end
 
-  it "creates separate folder and writes to disk" do
-    cwd = Path.new(FileUtils.pwd)
-
-    f = LuckyTemplate.create_folder("src") do |folder|
-      folder.add_file("example.txt")
-    end
-    LuckyTemplate.write!(cwd, f)
-
-    File.exists?(cwd.join("src", "example.txt")).should eq(true)
-  end
-
   it "writes folder to disk" do
-    cwd = Path.new(FileUtils.pwd)
-
-    LuckyTemplate.write!(cwd.join("src")) do |folder|
-      folder.add_file("example.txt")
-      folder.add_file("example2.txt") do |io|
-        io << "hello world"
+    folder = LuckyTemplate.write!(Path["."]) do |parent_dir|
+      parent_dir.add_file("example.txt")
+      parent_dir.add_folder("a", "b") do |emails_dir|
+        emails_dir.add_file("example2.txt")
       end
-      folder.add_file("example3.txt", "world hello")
     end
-
-    File.exists?(cwd.join("src", "example.txt")).should eq(true)
-    File.exists?(cwd.join("src", "example2.txt")).should eq(true)
-    File.exists?(cwd.join("src", "example3.txt")).should eq(true)
-
-    File.read(cwd.join("src", "example2.txt")).should eq("hello world")
-    File.read(cwd.join("src", "example3.txt")).should eq("world hello")
-  end
-
-  it "writes folder to disk with template file", tags: "only" do
-    cwd = Path.new(FileUtils.pwd)
-
-    LuckyTemplate.write!(cwd.join("src")) do |folder|
-      shard = LuckyTemplateSpec::ShardYml.new("my_shard", [
-        { "fullname" => "John Doe", "email" => "john.doe@example.com" }
-      ])
-
-      folder.add_file("shard.yml", shard)
-    end
-
-    shard_yml_path = cwd.join("src", "shard.yml")
-
-    File.exists?(shard_yml_path).should eq(true)
-    File.read(shard_yml_path).should eq(<<-YML)
-    name: my_shard
-    version: 0.1.0
-
-    authors:
-      - John Doe john.doe@example.com
-
-    crystal: ">= 1.0.0"
-
-    license: MIT\n
-    YML
+    folder.should LuckyTemplate.be_valid_at(Path["."])
   end
 end

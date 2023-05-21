@@ -8,12 +8,7 @@ module LuckyTemplate
   alias FileType = String | Fileable | FileProc | Nil
 
   class File
-    getter name : String
-
-    def initialize(@name, @file : FileType)
-      if @name.empty?
-        raise Error.new("Filename must not be empty")
-      end
+    def initialize(@file : FileType)
     end
 
     def to_s(io : IO) : Nil
