@@ -11,7 +11,9 @@ module LuckyTemplate
     getter name : String
 
     def initialize(@name, @file : FileType)
-      raise "Invalid filename" if @name.empty?
+      if @name.empty?
+        raise Error.new("Filename must not be empty")
+      end
     end
 
     def to_s(io : IO) : Nil
