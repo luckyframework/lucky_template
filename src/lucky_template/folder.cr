@@ -1,89 +1,82 @@
 module LuckyTemplate
-  enum FileSystem
-    File
-    Folder
-  end
-
   class Folder
     alias Files = File | Folder
+    alias Snapshot = Hash(String, FileSystem)
 
     @files = {} of String => Files
-    @in_use = false # TODO: rename to initializing
+    @locked = false
 
-    # NOTE: static content
+    # Adds a new `File` to the folder with static _content_
     def add_file(name : String, content : String) : self
-      _add_file(name, File.new(content))
-      self
+      insert_file(name, File.new(content))
     end
 
-    # NOTE: inheritance - dynamic content
+    # Adds a new `File` to the folder with `Fileable` interface
     def add_file(name : String, klass : Fileable) : self
-      _add_file(name, File.new(klass))
-      self
+      insert_file(name, File.new(klass))
     end
 
-    # NOTE: ECR.embed(io) - dynamic content
+    # Adds a new `File` to the folder yielding an `IO`
     def add_file(name : String, &block : FileProc) : self
-      _add_file(name, File.new(block))
-      self
+      insert_file(name, File.new(block))
     end
 
-    # NOTE: empty - static content
-    #
-    # Adds empty `LuckyTemplate::File` to `LuckyTemplate::Folder`
+    # Adds a new empty `File` to the folder
     def add_file(name : String) : self
-      _add_file(name, File.new(nil))
-      self
+      insert_file(name, File.new(nil))
     end
 
-    # TODO: check for name collision
-    private def _add_file(name : String, file : File) : Nil
+    private def insert_file(name : String, file : File) : self
       @files[name] = file
-    end
-
-    # Adds empty `LuckyTemplate::Folder`s
-    def add_folder(*names : String) : self
-      add_folder(*name) { }
       self
     end
 
-    # src/emails
-    # .add_folder("src", "emails") { |f| f... } # f == "emails"
     def add_folder(*names : String, & : Folder ->) : self
       prev : Folder? = nil
       names.each_with_index do |name, index|
         current_folder = Folder.new
         if index == names.size - 1
-          current_folder.in_use do
+          current_folder.lock do
             yield current_folder
           end
         end
         if prev_folder = prev
-          prev_folder._add_folder(name, current_folder)
+          prev_folder.insert_folder(name, current_folder)
         else
-          @files[name] = current_folder
+          insert_folder(name, current_folder)
         end
         prev = current_folder
       end
       self
     end
 
-    protected def _add_folder(name : String, folder : Folder) : Nil
-      if folder == self
-        raise Error.new("Folder cannot add itself")
-      elsif @in_use
-        raise Error.new("Parent folder already in-use")
-      end
-
-      @files[name] = folder
+    def add_folder(*names : String) : self
+      add_folder(*names) { }
     end
 
-    # Used as a safe-guard to protect against circular references
-    protected def in_use(&)
-      @in_use = true
+    def insert_folder(name : String, folder : Folder) : self
+      if folder == self
+        raise Error.new("Cannot add Folder equal to itself")
+      elsif folder.locked?
+        raise Error.new("Cannot add Folder that is already being yielded")
+      end
+      @files[name] = folder
+      self
+    end
+
+    # Locks the folder for as long as block yields
+    #
+    # To be used as a safe-guard to protect against circular references.
+    protected def lock(&) : Nil
+      @locked = true
       yield
     ensure
-      @in_use = false
+      @locked = false
+    end
+
+    # TODO: write description
+    def locked? : Bool
+      @locked
     end
 
     protected def files
@@ -95,6 +88,7 @@ module LuckyTemplate
       write_folder_to_disk!(path, self)
     end
 
+    # NOTE: Recursive
     private def write_folder_to_disk!(prev_path : Path, folder : Folder) : Nil
       folder.files.each do |name, file|
         path = prev_path / name
@@ -120,9 +114,9 @@ module LuckyTemplate
         path = location / filepath
         case type
         in .file?
-          ::File.size(path) # TODO: replace w/ custom error
+          ::File.size(path)
         in .folder?
-          Dir.open(path) { } # TODO: replace w/ custom error
+          Dir.open(path) { }
         end
       end
       true
@@ -137,14 +131,14 @@ module LuckyTemplate
       false
     end
 
-    alias Snapshot = Hash(String, FileSystem)
-
+    # Returns a new `Snapshot` of all files and folders within this folder
     protected def snapshot_files : Snapshot
       Snapshot.new.tap do |snapshot|
         snapshot_folder(Path.new, self, snapshot)
       end
     end
 
+    # NOTE: Recursive
     private def snapshot_folder(prev_path : Path, folder : Folder, snapshot : Snapshot) : Nil
       folder.files.each do |name, file|
         path = prev_path / name

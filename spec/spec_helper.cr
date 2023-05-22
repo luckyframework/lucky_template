@@ -1,6 +1,27 @@
 require "spec"
 require "file_utils"
+require "ecr"
 require "../src/lucky_template"
+
+record GitAuthor,
+  name : String,
+  email : String
+
+class ShardYml
+  include LuckyTemplate::Fileable
+
+  @name : String
+  @authors = [] of GitAuthor
+
+  def initialize(@name, @authors)
+  end
+
+  def to_file(io : IO) : Nil
+    to_s(io)
+  end
+
+  ECR.def_to_s "fixtures/shard.yml.ecr"
+end
 
 SPEC_TEMPFILE_PATH    = File.join(Dir.tempdir, "cr-spec-#{Random.new.hex(4)}")
 SPEC_TEMPFILE_CLEANUP = ENV["SPEC_TEMPFILE_CLEANUP"]? != "0"

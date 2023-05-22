@@ -6,7 +6,7 @@ module LuckyTemplate
 
   def create_parent_folder(& : Folder ->) : Folder
     parent_folder = Folder.new
-    parent_folder.in_use do
+    parent_folder.lock do
       yield parent_folder
     end
     parent_folder
