@@ -85,6 +85,9 @@ module LuckyTemplate
 
     # Writes the folder to disk at the given path
     protected def write_to_disk!(path : Path) : Nil
+      if locked?
+        raise Error.new("Cannot write to disk while being yielded")
+      end
       write_folder_to_disk!(path, self)
     end
 
@@ -133,6 +136,9 @@ module LuckyTemplate
 
     # Returns a new `Snapshot` of all files and folders within this folder
     protected def snapshot_files : Snapshot
+      if locked?
+        raise Error.new("Cannot get snapshot while being yielded")
+      end
       Snapshot.new.tap do |snapshot|
         snapshot_folder(Path.new, self, snapshot)
       end
