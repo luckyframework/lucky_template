@@ -148,11 +148,12 @@ module LuckyTemplate
     private def snapshot_folder(prev_path : Path, folder : Folder, snapshot : Snapshot) : Nil
       folder.files.each do |name, file|
         path = prev_path / name
+        key = path.to_posix.to_s
         case file
         in File
-          snapshot[path.to_s] = FileSystem::File
+          snapshot[key] = FileSystem::File
         in Folder
-          snapshot[path.to_s] = FileSystem::Folder
+          snapshot[key] = FileSystem::Folder
           snapshot_folder(path, file, snapshot)
         end
       end

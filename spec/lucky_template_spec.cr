@@ -87,10 +87,21 @@ describe LuckyTemplate do
       end
     end
 
-    pending "and writes to disk" do
+    it "and writes to disk" do
+      folder = LuckyTemplate.create_parent_folder do |parent_dir|
+        parent_dir.add_file("hello.txt")
+      end
+      path = Path[FileUtils.pwd]
+      LuckyTemplate.write!(path, folder)
+      folder.should LuckyTemplate.be_valid_at(path)
     end
   end
 
-  pending "writes folder to disk" do
+  it "writes folder to disk" do
+    path = Path[FileUtils.pwd]
+    folder = LuckyTemplate.write!(path) do |parent_dir|
+      parent_dir.add_file("hello.txt")
+    end
+    folder.should LuckyTemplate.be_valid_at(path)
   end
 end
