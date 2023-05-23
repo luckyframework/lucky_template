@@ -20,7 +20,7 @@ class ShardYml
     to_s(io)
   end
 
-  ECR.def_to_s "fixtures/shard.yml.ecr"
+  ECR.def_to_s "#{__DIR__}/fixtures/shard.yml.ecr"
 end
 
 SPEC_TEMPFILE_PATH    = File.join(Dir.tempdir, "cr-spec-#{Random.new.hex(4)}")
