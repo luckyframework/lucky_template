@@ -93,7 +93,7 @@ describe LuckyTemplate do
       end
       path = Path[FileUtils.pwd]
       LuckyTemplate.write!(path, folder)
-      folder.should LuckyTemplate.be_valid_at(path)
+      folder.should be_valid_at(path)
     end
   end
 
@@ -102,6 +102,6 @@ describe LuckyTemplate do
     folder = LuckyTemplate.write!(path) do |parent_dir|
       parent_dir.add_file("hello.txt")
     end
-    folder.should LuckyTemplate.be_valid_at(path)
+    folder.should be_valid_at(path)
   end
 end

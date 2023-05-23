@@ -2,6 +2,9 @@ require "spec"
 require "file_utils"
 require "ecr"
 require "../src/lucky_template"
+require "../src/spec"
+
+include LuckyTemplate::Spec
 
 record GitAuthor,
   name : String,
