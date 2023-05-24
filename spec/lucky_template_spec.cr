@@ -58,7 +58,7 @@ describe LuckyTemplate do
 
       it "using inheritance" do
         shard_yml = ShardYml.new("my_shard", [
-          GitAuthor.new("John Doe", "john.doe@example.com")
+          GitAuthor.new("John Doe", "john.doe@example.com"),
         ])
 
         folder = LuckyTemplate.create_parent_folder do |parent_dir|
