@@ -104,4 +104,24 @@ describe LuckyTemplate do
     end
     folder.should be_valid_at(path)
   end
+
+  context "fails" do
+    it "to validate file on disk" do
+      path = Path[FileUtils.pwd]
+      folder = LuckyTemplate.write!(path) do |parent_dir|
+        parent_dir.add_file("hello.txt")
+      end
+      File.delete(path / "hello.txt")
+      folder.should_not be_valid_at(path)
+    end
+
+    it "to validate folder on disk" do
+      path = Path[FileUtils.pwd]
+      folder = LuckyTemplate.write!(path) do |parent_dir|
+        parent_dir.add_folder("yoyo")
+      end
+      Dir.delete(path / "yoyo")
+      folder.should_not be_valid_at(path)
+    end
+  end
 end

@@ -3,23 +3,48 @@ module LuckyTemplate
     extend self
 
     def be_valid_at(location : Path)
-      FolderValidExpectation.new(location)
+      BeValidAtExpectation.new(location)
     end
 
-    private struct FolderValidExpectation
+    private class BeValidAtExpectation
+      property ex : ::File::NotFoundError?
+
       def initialize(@location : Path)
       end
 
       def match(actual_value : Folder) : Bool
-        LuckyTemplate.validate?(@location, actual_value)
+        LuckyTemplate.validate!(@location, actual_value)
+      rescue e : ::File::NotFoundError
+        self.ex = e
+        false
+      rescue
+        false
       end
 
       def failure_message(actual_value : Folder) : String
-        "Expected: All files and folders within Folder to exist"
+        if error = ex
+          String.build do |io|
+            io << "Expected: The following file/directory to exist"
+            io << "\n"
+            io << "  - "
+            io << error.file
+          end
+        else
+          "Expected: All files and folders within Folder to exist"
+        end
       end
 
       def negative_failure_message(actual_value : Folder) : String
-        "Expected: All files and folders within Folder not to exist"
+        if error = ex
+          String.build do |io|
+            io << "Expected: The following file/directory not to exist"
+            io << "\n"
+            io << "  - "
+            io << error.file
+          end
+        else
+          "Expected: All files and folders within Folder not to exist"
+        end
       end
     end
   end
