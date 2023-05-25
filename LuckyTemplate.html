@@ -96,13 +96,13 @@
       
     </li>
   
-  <li class=" " data-id="lucky_template/LuckyTemplate/Folder/Snapshot" data-name="luckytemplate::folder::snapshot">
-      <a href="LuckyTemplate/Folder/Snapshot.html">Snapshot</a>
+</ul>
+
       
     </li>
   
-</ul>
-
+  <li class=" " data-id="lucky_template/LuckyTemplate/Snapshot" data-name="luckytemplate::snapshot">
+      <a href="LuckyTemplate/Snapshot.html">Snapshot</a>
       
     </li>
   
@@ -170,49 +170,49 @@
   </h2>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template.cr#L4" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template.cr#L4" target="_blank">
         lucky_template.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template/error.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template/error.cr#L1" target="_blank">
         lucky_template/error.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template/file.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template/file.cr#L1" target="_blank">
         lucky_template/file.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template/file_system.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template/file_system.cr#L1" target="_blank">
         lucky_template/file_system.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template/folder.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template/folder.cr#L1" target="_blank">
         lucky_template/folder.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template/version.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template/version.cr#L1" target="_blank">
         lucky_template/version.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/spec.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/spec.cr#L1" target="_blank">
         spec.cr
       </a>
     
@@ -262,26 +262,30 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#snapshot_files%28folder%3AFolder%29-instance-method" class="signature"><strong>#snapshot_files</strong>(folder : Folder)</a>
+        <a href="#snapshot_files%28folder%3AFolder%29%3ASnapshot-instance-method" class="signature"><strong>#snapshot_files</strong>(folder : Folder) : Snapshot</a>
+        
+          <div class="summary"><p>Returns a new <code><a href="LuckyTemplate/Snapshot.html">Snapshot</a></code> of all files and folders within this folder</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#validate%21%28location%3APath%2Cfolder%3AFolder%29%3ABool-instance-method" class="signature"><strong>#validate!</strong>(location : Path, folder : Folder) : Bool</a>
         
-          <div class="summary"><p>Validates <em>folder</em> at <em>location</em> contains the same files and folders</p></div>
+          <div class="summary"><p>Returns <code>true</code> if the folder is <em>valid</em> at the given path</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#validate%3F%28location%3APath%2Cfolder%3AFolder%29%3ABool-instance-method" class="signature"><strong>#validate?</strong>(location : Path, folder : Folder) : Bool</a>
         
-          <div class="summary"><p>Validates <em>folder</em> at <em>location</em> contains the same files and folders</p></div>
+          <div class="summary"><p>Returns a <code>Bool</code> if the folder is <em>valid</em> at the given path</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#write%21%28location%3APath%2Cfolder%3AFolder%29%3ANil-instance-method" class="signature"><strong>#write!</strong>(location : Path, folder : Folder) : Nil</a>
+        
+          <div class="summary"><p>Writes the folder to disk at the given path</p></div>
         
       </li>
     
@@ -327,23 +331,29 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="snapshot_files(folder:Folder)-instance-method">
+    <div class="entry-detail" id="snapshot_files(folder:Folder):Snapshot-instance-method">
       <div class="signature">
         
-        def <strong>snapshot_files</strong>(folder : <a href="LuckyTemplate/Folder.html">Folder</a>)
+        def <strong>snapshot_files</strong>(folder : <a href="LuckyTemplate/Folder.html">Folder</a>) : <a href="LuckyTemplate/Snapshot.html">Snapshot</a>
 
-        <a class="method-permalink" href="#snapshot_files%28folder%3AFolder%29-instance-method">#</a>
+        <a class="method-permalink" href="#snapshot_files%28folder%3AFolder%29%3ASnapshot-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Returns a new <code><a href="LuckyTemplate/Snapshot.html">Snapshot</a></code> of all files and folders within this folder</p>
+<p>Raises <code><a href="LuckyTemplate/Error.html">LuckyTemplate::Error</a></code> if folder is locked</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template.cr#L41" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template.cr#L83" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -358,14 +368,15 @@
       
         <div class="doc">
           
-          <p>Validates <em>folder</em> at <em>location</em> contains the same files and folders</p>
+          <p>Returns <code>true</code> if the folder is <em>valid</em> at the given path</p>
+<p><em>valid</em> - Files and folder exist within the given path</p>
 <p>Raises <code>::File::NotFoundError</code> if either a file or folder does not exist</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template.cr#L58" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -380,13 +391,14 @@
       
         <div class="doc">
           
-          <p>Validates <em>folder</em> at <em>location</em> contains the same files and folders</p>
+          <p>Returns a <code>Bool</code> if the folder is <em>valid</em> at the given path</p>
+<p><em>valid</em> - Files and folder exist within the given path</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template.cr#L37" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template.cr#L74" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -399,10 +411,16 @@
         <a class="method-permalink" href="#write%21%28location%3APath%2Cfolder%3AFolder%29%3ANil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Writes the folder to disk at the given path</p>
+<p>Raises <code><a href="LuckyTemplate/Error.html">LuckyTemplate::Error</a></code> if folder is locked</p>
+        </div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -423,7 +441,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/a4bc873f74aabc93fe7465a164f3d35b2af4e4d3/src/lucky_template.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/a7ad2c02a2f97dc8fd1c2a86ed5548e38faa370f/src/lucky_template.cr#L45" target="_blank">View source</a>]
         
       </div>
     </div>
