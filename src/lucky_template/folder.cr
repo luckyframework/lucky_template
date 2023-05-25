@@ -5,7 +5,7 @@ module LuckyTemplate
     @files = {} of String => Files
     @locked = false
 
-    # Adds a new `File` to the folder with _static_ *content*
+    # Adds a new `File` to the folder with static *content*
     #
     # Examples:
     #
@@ -134,7 +134,7 @@ module LuckyTemplate
     #
     # ```
     # another_folder = LuckyTemplate::Folder.new
-    # LuckyTemplate.create_parent_folder do |folder|
+    # LuckyTemplate.create_folder do |folder|
     #   folder.insert_folder(another_folder)
     # end
     # ```
