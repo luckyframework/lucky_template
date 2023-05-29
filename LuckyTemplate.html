@@ -155,49 +155,49 @@
   </h2>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template.cr#L4" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template.cr#L4" target="_blank">
         lucky_template.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template/error.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/error.cr#L1" target="_blank">
         lucky_template/error.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template/file.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/file.cr#L1" target="_blank">
         lucky_template/file.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template/file_system.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/file_system.cr#L1" target="_blank">
         lucky_template/file_system.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template/folder.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L1" target="_blank">
         lucky_template/folder.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template/version.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/version.cr#L1" target="_blank">
         lucky_template/version.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/spec.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/spec.cr#L1" target="_blank">
         spec.cr
       </a>
     
@@ -337,7 +337,7 @@ folder.locked? <span class="c"># =&gt; false</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -361,7 +361,7 @@ folder.locked? <span class="c"># =&gt; false</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template.cr#L41" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -400,7 +400,7 @@ puts <span class="t">LuckyTemplate</span>.snapshot(folder)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template.cr#L164" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template.cr#L168" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -417,6 +417,7 @@ puts <span class="t">LuckyTemplate</span>.snapshot(folder)</code></pre>
           
           <p>Returns <code>true</code> if the <em>folder</em> is <strong>valid</strong> at the given <em>location</em></p>
 <p><strong>valid</strong> - Files and folders exist within the given <em>location</em></p>
+<p><span class="flag purple">NOTE</span>  <strong>Does not</strong> check <em>contents</em> of files, only the presence of them in the filesystem</p>
 <p>Raises <code>::File::NotFoundError</code> if either a <code><a href="LuckyTemplate/File.html">File</a></code> or <code><a href="LuckyTemplate/Folder.html">Folder</a></code> does not exist</p>
 <p>Example:</p>
 <pre><code class="language-crystal"><span class="k">begin</span>
@@ -430,7 +431,7 @@ puts <span class="t">LuckyTemplate</span>.snapshot(folder)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template.cr#L109" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template.cr#L111" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -447,6 +448,7 @@ puts <span class="t">LuckyTemplate</span>.snapshot(folder)</code></pre>
           
           <p>Returns a <code>Bool</code> if the <em>folder</em> is <strong>valid</strong> at the given <em>location</em></p>
 <p><strong>valid</strong> - Files and folders exist within the given <em>location</em></p>
+<p><span class="flag purple">NOTE</span>  <strong>Does not</strong> check <em>contents</em> of files, only the presence of them in the filesystem</p>
 <p>Example:</p>
 <pre><code class="language-crystal">templates_folder <span class="o">=</span> <span class="t">LuckyTemplate</span>.create_folder
 <span class="t">LuckyTemplate</span>.validate!(<span class="t">Path</span>[<span class="s">&quot;./templates&quot;</span>], templates_folder) <span class="c"># =&gt; true</span></code></pre>
@@ -455,7 +457,7 @@ puts <span class="t">LuckyTemplate</span>.snapshot(folder)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template.cr#L131" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template.cr#L135" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -480,7 +482,7 @@ puts <span class="t">LuckyTemplate</span>.snapshot(folder)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template.cr#L54" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template.cr#L54" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -505,7 +507,7 @@ puts <span class="t">LuckyTemplate</span>.snapshot(folder)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/95507eaec273fc4b3bcf013c8567970b88768ab2/src/lucky_template.cr#L86" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template.cr#L86" target="_blank">View source</a>]
         
       </div>
     </div>
