@@ -4,8 +4,16 @@ require "./lucky_template/*"
 module LuckyTemplate
   extend self
 
+  # A `LuckyTemplate::Snapshot` represents files and folders included within a `LuckyTemplate::Folder` at a moment in time
+  #
+  # **Key:** String path in **POSIX** form
+  #
+  # **Value:** Type of `LuckyTemplate::FileSystem`
   alias Snapshot = Hash(String, FileSystem)
 
+  # Creates a `Folder` and yields it, before returning the **unlocked** `Folder`
+  #
+  # NOTE: `Folder` is **locked** when being yielded. See `Folder#locked?`.
   def create_folder(& : Folder ->) : Folder
     Folder.new.tap do |folder|
       folder.lock do
@@ -14,9 +22,14 @@ module LuckyTemplate
     end
   end
 
-  # Writes the folder to disk at the given path
+  # Creates an empty `Folder`
+  def create_folder : Folder
+    create_folder { }
+  end
+
+  # Writes the folder to disk at the given _location_
   #
-  # Raises `LuckyTemplate::Error` if folder is locked
+  # Raises `Error` if _folder_ is locked
   def write!(location : Path, folder : Folder) : Nil
     Dir.mkdir_p(location)
     if folder.locked?
@@ -41,7 +54,7 @@ module LuckyTemplate
     end
   end
 
-  # Same as `#create_folder` and `#write!`
+  # Same as `.create_folder` and `.write!`
   def write!(location : Path, & : Folder ->) : Folder
     create_folder do |folder|
       yield folder
@@ -50,11 +63,11 @@ module LuckyTemplate
     end
   end
 
-  # Returns `true` if the folder is _valid_ at the given path
+  # Returns `true` if the _folder_ is **valid** at the given _location_
   #
-  # _valid_ - Files and folder exist within the given path
+  # **valid** - Files and folders exist within the given _location_
   #
-  # Raises `::File::NotFoundError` if either a file or folder does not exist
+  # Raises `::File::NotFoundError` if either a `File` or `Folder` does not exist
   def validate!(location : Path, folder : Folder) : Bool
     snapshot(folder).each do |filepath, type|
       path = location / filepath
@@ -68,18 +81,18 @@ module LuckyTemplate
     true
   end
 
-  # Returns a `Bool` if the folder is _valid_ at the given path
+  # Returns a `Bool` if the _folder_ is **valid** at the given _location_
   #
-  # _valid_ - Files and folder exist within the given path
+  # **valid** - Files and folders exist within the given _location_
   def validate?(location : Path, folder : Folder) : Bool
     validate!(location, folder)
   rescue
     false
   end
 
-  # Returns a new `Snapshot` of all files and folders within this folder
+  # Returns a new `Snapshot` of all files and folders within this _folder_
   #
-  # Raises `LuckyTemplate::Error` if folder is locked
+  # Raises `Error` if _folder_ is **locked**
   def snapshot(folder : Folder) : Snapshot
     if folder.locked?
       raise Error.new("Cannot get snapshot if folder is locked")

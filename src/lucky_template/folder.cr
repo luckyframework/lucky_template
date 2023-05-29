@@ -1,11 +1,20 @@
 module LuckyTemplate
+  # A `Folder` represents a filesystem directory, but in a virtual form.
   class Folder
     alias Files = File | Folder
+
+    # :nodoc:
+    DOT_PATHS = ["..", "."]
 
     @files = {} of String => Files
     @locked = false
 
+    protected def initialize
+    end
+
     # Adds a new `File` to the folder with static *content*
+    #
+    # Raises `Error` if _name_ contains invalid path(s)
     #
     # Examples:
     #
@@ -19,10 +28,31 @@ module LuckyTemplate
     # TEXT
     # ```
     def add_file(name : String, content : String) : self
-      add_file(name, File.new(content))
+      add_file(Path[name], content)
+    end
+
+    # Adds a new `File` to the folder with static *content*
+    #
+    # Raises `Error` if _path_ contains invalid path(s)
+    #
+    # Examples:
+    #
+    # ```
+    # add_file(Path["./hello.txt"], "hello world")
+    # ```
+    #
+    # ```
+    # add_file(Path["./hello.txt"], <<-TEXT)
+    # hello world
+    # TEXT
+    # ```
+    def add_file(path : Path, content : String) : self
+      add_file(path, File.new(content))
     end
 
     # Adds a new `File` to the folder with `Fileable` interface
+    #
+    # Raises `Error` if _name_ contains invalid path(s)
     #
     # Example:
     #
@@ -34,10 +64,29 @@ module LuckyTemplate
     # add_file("hello.txt", Hello.new)
     # ```
     def add_file(name : String, klass : Fileable) : self
-      add_file(name, File.new(klass))
+      add_file(Path[name], klass)
+    end
+
+    # Adds a new `File` to the folder with `Fileable` interface
+    #
+    # Raises `Error` if _path_ contains invalid path(s)
+    #
+    # Example:
+    #
+    # ```
+    # class Hello
+    #   include LuckyTemplate::Fileable
+    # end
+    #
+    # add_file(Path["./hello.txt"], Hello.new)
+    # ```
+    def add_file(path : Path, klass : Fileable) : self
+      add_file(path, File.new(klass))
     end
 
     # Adds a new `File` to the folder yielding an `IO`
+    #
+    # Raises `Error` if _name_ contains invalid path(s)
     #
     # Example:
     #
@@ -47,10 +96,27 @@ module LuckyTemplate
     # end
     # ```
     def add_file(name : String, &block : FileProc) : self
-      add_file(name, File.new(block))
+      add_file(Path[name], &block)
+    end
+
+    # Adds a new `File` to the folder yielding an `IO`
+    #
+    # Raises `Error` if _path_ contains invalid path(s)
+    #
+    # Example:
+    #
+    # ```
+    # add_file(Path["./hello.txt"]) do |io|
+    #   ECR.embed("hello.ecr", io)
+    # end
+    # ```
+    def add_file(path : Path, &block : FileProc) : self
+      add_file(path, File.new(block))
     end
 
     # Adds a new empty `File` to the folder
+    #
+    # Raises `Error` if _name_ contains invalid path(s)
     #
     # Example:
     #
@@ -58,21 +124,54 @@ module LuckyTemplate
     # add_file("hello.txt")
     # ```
     def add_file(name : String) : self
-      add_file(name, File.new(nil))
+      add_file(Path[name])
     end
 
-    # Adds a `File` to the folder
-    def add_file(name : String, file : File) : self
+    # Adds a new empty `File` to the folder
+    #
+    # Raises `Error` if _path_ contains invalid path(s)
+    #
+    # Example:
+    #
+    # ```
+    # add_file(Path["./hello.txt"])
+    # ```
+    def add_file(path : Path) : self
+      add_file(path, File.new(nil))
+    end
+
+    private def add_file(path : Path, file : File) : self
+      begin
+        path = normalize_path(path)
+      rescue Error
+        raise Error.new("Cannot add File without a path")
+      end
+
+      folders = path.parts
+      filename = folders.pop
+
+      if folders.empty?
+        add_file(filename, file)
+      else
+        add_folder(folders) do |folder|
+          add_file(filename, file)
+        end
+      end
+    end
+
+    private def add_file(name : String, file : File) : self
       @files[name] = file
       self
     end
 
     # Adds nested folders, yielding the last one
     #
+    # Raises `Error` if _names_ contains invalid folder names
+    #
     # Example:
     #
     # ```
-    # add_folder("a", "b", "c") do |folder| # folder == "c"
+    # add_folder(["a", "b", "c"]) do |folder| # folder == "c"
     #   folder.add_file("hello.txt")
     # end
     # ```
@@ -85,7 +184,13 @@ module LuckyTemplate
     # a/b/c
     # a/b/c/hello.txt
     # ```
-    def add_folder(*names : String, & : Folder ->) : self
+    def add_folder(names : Enumerable(String), & : Folder ->) : self
+      begin
+        names = normalize_path(Path[names]).parts
+      rescue Error
+        raise Error.new("Cannot add Folders without names")
+      end
+
       prev : Folder? = nil
       names.each_with_index do |name, index|
         current_folder = Folder.new
@@ -104,7 +209,105 @@ module LuckyTemplate
       self
     end
 
+    # Adds nested folders, yielding the last one
+    #
+    # Raises `Error` if _path_ contains invalid folder names
+    #
+    # Example:
+    #
+    # ```
+    # add_folder(Path["a/b/c"]) do |folder| # folder == "c"
+    #   folder.add_file("hello.txt")
+    # end
+    # ```
+    #
+    # Produces these folder paths:
+    #
+    # ```text
+    # a
+    # a/b
+    # a/b/c
+    # a/b/c/hello.txt
+    # ```
+    def add_folder(path : Path, & : Folder ->) : self
+      add_folder(path.parts) do |folder|
+        yield folder
+      end
+    end
+
+    # Adds nested folders, yielding the last one
+    #
+    # Raises `Error` if _names_ contains invalid folder names
+    #
+    # Example:
+    #
+    # ```
+    # add_folder("a", "b", "c") do |folder| # folder == "c"
+    #   folder.add_file("hello.txt")
+    # end
+    # ```
+    #
+    # Produces these folder paths:
+    #
+    # ```text
+    # a
+    # a/b
+    # a/b/c
+    # a/b/c/hello.txt
+    # ```
+    def add_folder(*names : String, & : Folder ->) : self
+      add_folder(names) do |folder|
+        yield folder
+      end
+    end
+
     # Adds nested empty folders
+    #
+    # Raises `Error` if _names_ contains invalid folder names
+    #
+    # Example:
+    #
+    # ```
+    # add_folder(["a", "b", "c", "d"])
+    # ```
+    #
+    # Produces these folder paths:
+    #
+    # ```text
+    # a
+    # a/b
+    # a/b/c
+    # a/b/c/d
+    # ```
+    def add_folder(names : Enumerable(String)) : self
+      add_folder(names) { }
+    end
+
+    # Adds nested empty folders
+    #
+    # Raises `Error` if _path_ contains invalid folder names
+    #
+    # Example:
+    #
+    # ```
+    # add_folder(Path["a/b/c/d"])
+    # ```
+    #
+    # Produces these folder paths:
+    #
+    # ```text
+    # a
+    # a/b
+    # a/b/c
+    # a/b/c/d
+    # ```
+    def add_folder(path : Path) : self
+      add_folder(path.parts) { }
+    end
+
+    # Adds nested empty folders
+    #
+    # Raises `Error` if _names_ contains invalid folder names
     #
     # Example:
     #
@@ -121,12 +324,12 @@ module LuckyTemplate
     # a/b/c/d
     # ```
     def add_folder(*names : String) : self
-      add_folder(*names) { }
+      add_folder(names)
     end
 
     # Insert an existing folder
     #
-    # Raises `LuckyTemplate::Error` if one of the following are true:
+    # Raises `Error` if one of the following are true:
     #   - existing folder is equal to itself
     #   - existing folder is locked
     #
@@ -148,17 +351,36 @@ module LuckyTemplate
       self
     end
 
+    # Checks if folder is _locked_
+    #
+    # This usually means it's being yielded already.
+    def locked? : Bool
+      @locked
+    end
+
+    # NOTE: Does more than just `Path#normalize`
+    #
+    # Removes "..", ".", and "/" (root) paths
+    private def normalize_path(path : Path) : Path
+      path = path.normalize
+      path.parts.tap do |parts|
+        if path.root || DOT_PATHS.includes?(parts[0])
+          parts.shift
+          if parts.empty?
+            raise Error.new("Invalid path")
+          end
+          path = Path[parts]
+        end
+      end
+      path
+    end
+
     # To be used as a safe-guard to protect against circular references
     protected def lock(&) : Nil
       @locked = true
       yield
     ensure
       @locked = false
-    end
-
-    # Checks if folder is _locked_
-    def locked? : Bool
-      @locked
     end
 
     protected def files

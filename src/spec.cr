@@ -2,6 +2,7 @@ module LuckyTemplate
   module Spec
     extend self
 
+    # Validates all files and folders exist within the given _location_
     def be_valid_at(location : Path)
       BeValidAtExpectation.new(location)
     end
