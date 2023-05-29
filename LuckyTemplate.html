@@ -165,49 +165,49 @@
   </h2>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template.cr#L4" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template.cr#L4" target="_blank">
         lucky_template.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template/error.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template/error.cr#L1" target="_blank">
         lucky_template/error.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template/file.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template/file.cr#L1" target="_blank">
         lucky_template/file.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template/file_system.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template/file_system.cr#L1" target="_blank">
         lucky_template/file_system.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template/folder.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template/folder.cr#L1" target="_blank">
         lucky_template/folder.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template/version.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template/version.cr#L1" target="_blank">
         lucky_template/version.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/spec.cr#L1" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/spec.cr#L1" target="_blank">
         spec.cr
       </a>
     
@@ -296,7 +296,7 @@
       <li class="entry-summary">
         <a href="#write%21%28location%3APath%2C%26%3AFolder-%3E%29%3AFolder-instance-method" class="signature"><strong>#write!</strong>(location : Path, & : Folder -> ) : Folder</a>
         
-          <div class="summary"><p>Same as <code><a href="LuckyTemplate.html#create_folder%28%26%3AFolder-%3E%29%3AFolder-instance-method">.create_folder</a></code> and <code><a href="LuckyTemplate.html#write%21%28location%3APath%2Cfolder%3AFolder%29%3ANil-instance-method">.write!</a></code></p></div>
+          <div class="summary"><p>Shorthand for <code><a href="LuckyTemplate.html#create_folder%28%26%3AFolder-%3E%29%3AFolder-instance-method">.create_folder</a></code> and <code><a href="LuckyTemplate.html#write%21%28location%3APath%2Cfolder%3AFolder%29%3ANil-instance-method">.write!</a></code></p></div>
         
       </li>
     
@@ -336,12 +336,18 @@
           
           <p>Creates a <code><a href="LuckyTemplate/Folder.html">Folder</a></code> and yields it, before returning the <strong>unlocked</strong> <code><a href="LuckyTemplate/Folder.html">Folder</a></code></p>
 <p><span class="flag purple">NOTE</span>  <code><a href="LuckyTemplate/Folder.html">Folder</a></code> is <strong>locked</strong> when being yielded. See <code><a href="LuckyTemplate/Folder.html#locked%3F%3ABool-instance-method">Folder#locked?</a></code>.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">folder <span class="o">=</span> <span class="t">LuckyTemplate</span>.create_folder <span class="k">do</span> <span class="o">|</span>dir<span class="o">|</span>
+  dir.locked? <span class="c"># =&gt; true</span>
+  dir.add_file(<span class="s">&quot;.keep&quot;</span>)
+<span class="k">end</span>
+folder.locked? <span class="c"># =&gt; false</span></code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -357,12 +363,15 @@
         <div class="doc">
           
           <p>Creates an empty <code><a href="LuckyTemplate/Folder.html">Folder</a></code></p>
+<p>Example:</p>
+<pre><code class="language-crystal">folder <span class="o">=</span> <span class="t">LuckyTemplate</span>.create_folder
+folder.locked? <span class="c"># =&gt; false</span></code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -379,12 +388,29 @@
           
           <p>Returns a new <code><a href="LuckyTemplate/Snapshot.html">Snapshot</a></code> of all files and folders within this <em>folder</em></p>
 <p>Raises <code><a href="LuckyTemplate/Error.html">Error</a></code> if <em>folder</em> is <strong>locked</strong></p>
+<p><span class="flag purple">NOTE</span>  <strong>Does not</strong> include <code><a href="LuckyTemplate/File.html">File</a></code> instances in results, because no use-case yet</p>
+<p>Example:</p>
+<pre><code class="language-crystal">folder <span class="o">=</span> <span class="t">LuckyTemplate</span>.create_folder <span class="k">do</span> <span class="o">|</span>dir<span class="o">|</span>
+  dir.add_file(<span class="s">&quot;.keep&quot;</span>)
+  dir.add_file(<span class="s">&quot;README.md&quot;</span>)
+  dir.add_folder(<span class="s">&quot;src&quot;</span>) <span class="k">do</span> <span class="o">|</span>src<span class="o">|</span>
+    src.add_file(<span class="s">&quot;hello.cr&quot;</span>)
+  <span class="k">end</span>
+<span class="k">end</span>
+puts <span class="t">LuckyTemplate</span>.snapshot(folder)</code></pre>
+<p>Output:</p>
+<pre><code class="language-crystal">{
+  <span class="s">&quot;.keep&quot;</span> <span class="o">=&gt;</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">FileSystem</span><span class="t">::</span><span class="t">File</span>,
+  <span class="s">&quot;README.md&quot;</span> <span class="o">=&gt;</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">FileSystem</span><span class="t">::</span><span class="t">File</span>,
+  <span class="s">&quot;src&quot;</span> <span class="o">=&gt;</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">FileSystem</span><span class="t">::</span><span class="t">Folder</span>,
+  <span class="s">&quot;src/hello.cr&quot;</span> <span class="o">=&gt;</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">FileSystem</span><span class="t">::</span><span class="t">File</span>,
+}</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template.cr#L96" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template.cr#L164" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -402,12 +428,19 @@
           <p>Returns <code>true</code> if the <em>folder</em> is <strong>valid</strong> at the given <em>location</em></p>
 <p><strong>valid</strong> - Files and folders exist within the given <em>location</em></p>
 <p>Raises <code>::File::NotFoundError</code> if either a <code><a href="LuckyTemplate/File.html">File</a></code> or <code><a href="LuckyTemplate/Folder.html">Folder</a></code> does not exist</p>
+<p>Example:</p>
+<pre><code class="language-crystal"><span class="k">begin</span>
+  templates_folder <span class="o">=</span> <span class="t">LuckyTemplate</span>.create_folder
+  <span class="t">LuckyTemplate</span>.validate!(<span class="t">Path</span>[<span class="s">&quot;./templates&quot;</span>], templates_folder) <span class="c"># =&gt; true</span>
+<span class="k">rescue</span> err : <span class="t">::</span><span class="t">File</span><span class="t">::</span><span class="t">NotFoundError</span>
+  puts err.message
+<span class="k">end</span></code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template.cr#L71" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template.cr#L109" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -424,12 +457,15 @@
           
           <p>Returns a <code>Bool</code> if the <em>folder</em> is <strong>valid</strong> at the given <em>location</em></p>
 <p><strong>valid</strong> - Files and folders exist within the given <em>location</em></p>
+<p>Example:</p>
+<pre><code class="language-crystal">templates_folder <span class="o">=</span> <span class="t">LuckyTemplate</span>.create_folder
+<span class="t">LuckyTemplate</span>.validate!(<span class="t">Path</span>[<span class="s">&quot;./templates&quot;</span>], templates_folder) <span class="c"># =&gt; true</span></code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template.cr#L87" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template.cr#L131" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -446,12 +482,15 @@
           
           <p>Writes the folder to disk at the given <em>location</em></p>
 <p>Raises <code><a href="LuckyTemplate/Error.html">Error</a></code> if <em>folder</em> is locked</p>
+<p>Example:</p>
+<pre><code class="language-crystal">templates_folder <span class="o">=</span> <span class="t">LuckyTemplate</span>.create_folder
+<span class="t">LuckyTemplate</span>.write!(<span class="t">Path</span>[<span class="s">&quot;./templates&quot;</span>], templates_folder)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template.cr#L54" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -466,13 +505,17 @@
       
         <div class="doc">
           
-          <p>Same as <code><a href="LuckyTemplate.html#create_folder%28%26%3AFolder-%3E%29%3AFolder-instance-method">.create_folder</a></code> and <code><a href="LuckyTemplate.html#write%21%28location%3APath%2Cfolder%3AFolder%29%3ANil-instance-method">.write!</a></code></p>
+          <p>Shorthand for <code><a href="LuckyTemplate.html#create_folder%28%26%3AFolder-%3E%29%3AFolder-instance-method">.create_folder</a></code> and <code><a href="LuckyTemplate.html#write%21%28location%3APath%2Cfolder%3AFolder%29%3ANil-instance-method">.write!</a></code></p>
+<p>Example:</p>
+<pre><code class="language-crystal">folder <span class="o">=</span> <span class="t">LuckyTemplate</span>.write!(<span class="t">Path</span>[<span class="s">&quot;./templates&quot;</span>]) <span class="k">do</span> <span class="o">|</span>templates_folder<span class="o">|</span>
+  templates_folder.add_file(<span class="s">&quot;.keep&quot;</span>)
+<span class="k">end</span></code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/27e2d7f659952bc546313b8105d4dfc2042d5aae/src/lucky_template.cr#L58" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/b9c0cf01446f420865c20cf42ac4ad257ab98403/src/lucky_template.cr#L86" target="_blank">View source</a>]
         
       </div>
     </div>
