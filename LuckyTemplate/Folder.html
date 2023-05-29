@@ -61,18 +61,13 @@
       
     </li>
   
-  <li class=" " data-id="lucky_template/LuckyTemplate/File" data-name="luckytemplate::file">
-      <a href="../LuckyTemplate/File.html">File</a>
-      
-    </li>
-  
   <li class=" " data-id="lucky_template/LuckyTemplate/Fileable" data-name="luckytemplate::fileable">
       <a href="../LuckyTemplate/Fileable.html">Fileable</a>
       
     </li>
   
-  <li class=" " data-id="lucky_template/LuckyTemplate/FileProc" data-name="luckytemplate::fileproc">
-      <a href="../LuckyTemplate/FileProc.html">FileProc</a>
+  <li class=" " data-id="lucky_template/LuckyTemplate/FileIO" data-name="luckytemplate::fileio">
+      <a href="../LuckyTemplate/FileIO.html">FileIO</a>
       
     </li>
   
@@ -154,7 +149,7 @@
   </h2>
   
     
-      <a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L3" target="_blank">
+      <a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L3" target="_blank">
         lucky_template/folder.cr
       </a>
     
@@ -182,56 +177,56 @@
       <li class="entry-summary">
         <a href="#add_file%28name%3AString%2Ccontent%3AString%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, content : String) : <span class="k">self</span></a>
         
-          <div class="summary"><p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder with <em>content</em></p></div>
+          <div class="summary"><p>Adds a new file to the folder with <em>content</em></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#add_file%28path%3APath%2Ccontent%3AString%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, content : String) : <span class="k">self</span></a>
         
-          <div class="summary"><p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder with <em>content</em></p></div>
+          <div class="summary"><p>Adds a new file to the folder with <em>content</em></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#add_file%28name%3AString%2Cklass%3AFileable%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, klass : Fileable) : <span class="k">self</span></a>
         
-          <div class="summary"><p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p></div>
+          <div class="summary"><p>Adds a new file to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#add_file%28path%3APath%2Cklass%3AFileable%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, klass : Fileable) : <span class="k">self</span></a>
         
-          <div class="summary"><p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p></div>
+          <div class="summary"><p>Adds a new file to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add_file%28name%3AString%2C%26block%3AFileProc%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, &block : FileProc) : <span class="k">self</span></a>
+        <a href="#add_file%28name%3AString%2C%26block%3AFileIO%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, &block : FileIO) : <span class="k">self</span></a>
         
-          <div class="summary"><p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder yielding an <code>IO</code></p></div>
+          <div class="summary"><p>Adds a new file to the folder yielding an <code>IO</code></p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add_file%28path%3APath%2C%26block%3AFileProc%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, &block : FileProc) : <span class="k">self</span></a>
+        <a href="#add_file%28path%3APath%2C%26block%3AFileIO%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, &block : FileIO) : <span class="k">self</span></a>
         
-          <div class="summary"><p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder yielding an <code>IO</code></p></div>
+          <div class="summary"><p>Adds a new file to the folder yielding an <code>IO</code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#add_file%28name%3AString%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String) : <span class="k">self</span></a>
         
-          <div class="summary"><p>Adds a new empty <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder</p></div>
+          <div class="summary"><p>Adds a new empty file to the folder</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#add_file%28path%3APath%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path) : <span class="k">self</span></a>
         
-          <div class="summary"><p>Adds a new empty <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder</p></div>
+          <div class="summary"><p>Adds a new empty file to the folder</p></div>
         
       </li>
     
@@ -278,12 +273,9 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#empty%3F%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#empty?</strong>(*args, **options)</a>
+        <a href="#empty%3F%3ABool-instance-method" class="signature"><strong>#empty?</strong> : Bool</a>
         
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#empty%3F%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method" class="signature"><strong>#empty?</strong>(*args, **options, &)</a>
+          <div class="summary"><p>Checks if folder has no files or folders</p></div>
         
       </li>
     
@@ -298,16 +290,6 @@
         <a href="#locked%3F%3ABool-instance-method" class="signature"><strong>#locked?</strong> : Bool</a>
         
           <div class="summary"><p>Checks if folder is <em>locked</em></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#size%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#size</strong>(*args, **options)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#size%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method" class="signature"><strong>#size</strong>(*args, **options, &)</a>
         
       </li>
     
@@ -365,7 +347,7 @@
       
         <div class="doc">
           
-          <p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder with <em>content</em></p>
+          <p>Adds a new file to the folder with <em>content</em></p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>name</em> contains invalid path(s)</p>
 <p>Examples(s):</p>
 <pre><code class="language-crystal">add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="s">&quot;hello world&quot;</span>)
@@ -378,7 +360,7 @@ TEXT</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -393,7 +375,7 @@ TEXT</span></code></pre>
       
         <div class="doc">
           
-          <p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder with <em>content</em></p>
+          <p>Adds a new file to the folder with <em>content</em></p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>path</em> contains invalid path(s)</p>
 <p>Examples(s):</p>
 <pre><code class="language-crystal">add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="s">&quot;hello world&quot;</span>)
@@ -406,7 +388,7 @@ TEXT</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L44" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L44" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -421,7 +403,7 @@ TEXT</span></code></pre>
       
         <div class="doc">
           
-          <p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p>
+          <p>Adds a new file to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>name</em> contains invalid path(s)</p>
 <p>Example(s):</p>
 <pre><code class="language-crystal"><span class="k">class</span> <span class="t">Hello</span>
@@ -438,7 +420,7 @@ add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="t">Hello</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L64" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L64" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -453,7 +435,7 @@ add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="t">Hello</sp
       
         <div class="doc">
           
-          <p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p>
+          <p>Adds a new file to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>path</em> contains invalid path(s)</p>
 <p>Example(s):</p>
 <pre><code class="language-crystal"><span class="k">class</span> <span class="t">Hello</span>
@@ -470,65 +452,65 @@ add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L84" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L84" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="add_file(name:String,&amp;block:FileProc):self-instance-method">
+    <div class="entry-detail" id="add_file(name:String,&amp;block:FileIO):self-instance-method">
       <div class="signature">
         
-        def <strong>add_file</strong>(name : String, &block : <a href="../LuckyTemplate/FileProc.html">FileProc</a>) : <span class="k">self</span>
+        def <strong>add_file</strong>(name : String, &block : <a href="../LuckyTemplate/FileIO.html">FileIO</a>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#add_file%28name%3AString%2C%26block%3AFileProc%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#add_file%28name%3AString%2C%26block%3AFileIO%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder yielding an <code>IO</code></p>
+          <p>Adds a new file to the folder yielding an <code>IO</code></p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>name</em> contains invalid path(s)</p>
 <p>Example(s):</p>
 <pre><code class="language-crystal">add_file(<span class="s">&quot;hello.txt&quot;</span>) <span class="k">do</span> <span class="o">|</span>io<span class="o">|</span>
   <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io)
 <span class="k">end</span>
 
-proc <span class="o">=</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">FileProc</span>.new { <span class="o">|</span>io<span class="o">|</span> <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io) }
+proc <span class="o">=</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">FileIO</span>.new { <span class="o">|</span>io<span class="o">|</span> <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io) }
 add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="o">&amp;</span>proc)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="add_file(path:Path,&amp;block:FileProc):self-instance-method">
+    <div class="entry-detail" id="add_file(path:Path,&amp;block:FileIO):self-instance-method">
       <div class="signature">
         
-        def <strong>add_file</strong>(path : Path, &block : <a href="../LuckyTemplate/FileProc.html">FileProc</a>) : <span class="k">self</span>
+        def <strong>add_file</strong>(path : Path, &block : <a href="../LuckyTemplate/FileIO.html">FileIO</a>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#add_file%28path%3APath%2C%26block%3AFileProc%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#add_file%28path%3APath%2C%26block%3AFileIO%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Adds a new <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder yielding an <code>IO</code></p>
+          <p>Adds a new file to the folder yielding an <code>IO</code></p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>path</em> contains invalid path(s)</p>
 <p>Example(s):</p>
 <pre><code class="language-crystal">add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>]) <span class="k">do</span> <span class="o">|</span>io<span class="o">|</span>
   <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io)
 <span class="k">end</span>
 
-proc <span class="o">=</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">FileProc</span>.new { <span class="o">|</span>io<span class="o">|</span> <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io) }
+proc <span class="o">=</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">FileIO</span>.new { <span class="o">|</span>io<span class="o">|</span> <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io) }
 add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="o">&amp;</span>proc)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L118" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L118" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -543,7 +525,7 @@ add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</sp
       
         <div class="doc">
           
-          <p>Adds a new empty <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder</p>
+          <p>Adds a new empty file to the folder</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>name</em> contains invalid path(s)</p>
 <p>Example(s):</p>
 <pre><code class="language-crystal">add_file(<span class="s">&quot;hello.txt&quot;</span>)</code></pre>
@@ -552,7 +534,7 @@ add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L130" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L130" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -567,7 +549,7 @@ add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</sp
       
         <div class="doc">
           
-          <p>Adds a new empty <code><a href="../LuckyTemplate/File.html">File</a></code> to the folder</p>
+          <p>Adds a new empty file to the folder</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>path</em> contains invalid path(s)</p>
 <p>Example:</p>
 <pre><code class="language-crystal">add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>])</code></pre>
@@ -576,7 +558,7 @@ add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L142" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L142" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -607,7 +589,7 @@ a/b/c/hello.txt</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L188" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L188" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -638,7 +620,7 @@ a/b/c/hello.txt</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L231" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L231" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -669,7 +651,7 @@ a/b/c/hello.txt</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L255" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L255" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -698,7 +680,7 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L277" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L277" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -727,7 +709,7 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L297" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L297" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -756,39 +738,28 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L317" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L317" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="empty?(*args,**options)-instance-method">
+    <div class="entry-detail" id="empty?:Bool-instance-method">
       <div class="signature">
         
-        def <strong>empty?</strong>(*args, **options)
+        def <strong>empty?</strong> : Bool
 
-        <a class="method-permalink" href="#empty%3F%28%2Aargs%2C%2A%2Aoptions%29-instance-method">#</a>
+        <a class="method-permalink" href="#empty%3F%3ABool-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Checks if folder has no files or folders</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L351" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="empty?(*args,**options,&amp;)-instance-method">
-      <div class="signature">
-        
-        def <strong>empty?</strong>(*args, **options, &)
-
-        <a class="method-permalink" href="#empty%3F%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L351" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L352" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -819,7 +790,7 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L334" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L334" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -841,39 +812,7 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L347" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="size(*args,**options)-instance-method">
-      <div class="signature">
-        
-        def <strong>size</strong>(*args, **options)
-
-        <a class="method-permalink" href="#size%28%2Aargs%2C%2A%2Aoptions%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L351" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="size(*args,**options,&amp;)-instance-method">
-      <div class="signature">
-        
-        def <strong>size</strong>(*args, **options, &)
-
-        <a class="method-permalink" href="#size%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/mdwagner/lucky_template/blob/923448fc1722c26cfc1cba20294343863cb15e08/src/lucky_template/folder.cr#L351" target="_blank">View source</a>]
+          [<a href="https://github.com/mdwagner/lucky_template/blob/5cc009e798bf94a3e1586ddf4611c8e66691104e/src/lucky_template/folder.cr#L347" target="_blank">View source</a>]
         
       </div>
     </div>
