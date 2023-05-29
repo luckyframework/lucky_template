@@ -95,6 +95,8 @@ module LuckyTemplate
   #
   # **valid** - Files and folders exist within the given _location_
   #
+  # NOTE: **Does not** check _contents_ of files, only the presence of them in the filesystem
+  #
   # Raises `::File::NotFoundError` if either a `File` or `Folder` does not exist
   #
   # Example:
@@ -122,6 +124,8 @@ module LuckyTemplate
   # Returns a `Bool` if the _folder_ is **valid** at the given _location_
   #
   # **valid** - Files and folders exist within the given _location_
+  #
+  # NOTE: **Does not** check _contents_ of files, only the presence of them in the filesystem
   #
   # Example:
   # ```
