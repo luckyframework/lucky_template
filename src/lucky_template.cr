@@ -155,9 +155,9 @@ module LuckyTemplate
   # Output:
   # ```
   # {
-  #   ".keep" => LuckyTemplate::FileSystem::File,
-  #   "README.md" => LuckyTemplate::FileSystem::File,
-  #   "src" => LuckyTemplate::FileSystem::Folder,
+  #   ".keep"        => LuckyTemplate::FileSystem::File,
+  #   "README.md"    => LuckyTemplate::FileSystem::File,
+  #   "src"          => LuckyTemplate::FileSystem::Folder,
   #   "src/hello.cr" => LuckyTemplate::FileSystem::File,
   # }
   # ```

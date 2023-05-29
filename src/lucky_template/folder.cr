@@ -1,6 +1,7 @@
 module LuckyTemplate
   # A `Folder` represents a filesystem directory, but in a virtual form.
   class Folder
+    # :nodoc:
     alias Files = File | Folder
 
     # :nodoc:
@@ -52,6 +53,7 @@ module LuckyTemplate
     # ```
     # class Hello
     #   include LuckyTemplate::Fileable
+    #
     #   def to_file(io : IO) : Nil
     #     io << "hello"
     #   end
@@ -71,6 +73,7 @@ module LuckyTemplate
     # ```
     # class Hello
     #   include LuckyTemplate::Fileable
+    #
     #   def to_file(io : IO) : Nil
     #     io << "hello"
     #   end
