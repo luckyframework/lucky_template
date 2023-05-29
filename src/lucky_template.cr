@@ -14,6 +14,15 @@ module LuckyTemplate
   # Creates a `Folder` and yields it, before returning the **unlocked** `Folder`
   #
   # NOTE: `Folder` is **locked** when being yielded. See `Folder#locked?`.
+  #
+  # Example:
+  # ```
+  # folder = LuckyTemplate.create_folder do |dir|
+  #   dir.locked? # => true
+  #   dir.add_file(".keep")
+  # end
+  # folder.locked? # => false
+  # ```
   def create_folder(& : Folder ->) : Folder
     Folder.new.tap do |folder|
       folder.lock do
@@ -23,6 +32,12 @@ module LuckyTemplate
   end
 
   # Creates an empty `Folder`
+  #
+  # Example:
+  # ```
+  # folder = LuckyTemplate.create_folder
+  # folder.locked? # => false
+  # ```
   def create_folder : Folder
     create_folder { }
   end
@@ -30,6 +45,12 @@ module LuckyTemplate
   # Writes the folder to disk at the given _location_
   #
   # Raises `Error` if _folder_ is locked
+  #
+  # Example:
+  # ```
+  # templates_folder = LuckyTemplate.create_folder
+  # LuckyTemplate.write!(Path["./templates"], templates_folder)
+  # ```
   def write!(location : Path, folder : Folder) : Nil
     Dir.mkdir_p(location)
     if folder.locked?
@@ -54,7 +75,14 @@ module LuckyTemplate
     end
   end
 
-  # Same as `.create_folder` and `.write!`
+  # Shorthand for `.create_folder` and `.write!`
+  #
+  # Example:
+  # ```
+  # folder = LuckyTemplate.write!(Path["./templates"]) do |templates_folder|
+  #   templates_folder.add_file(".keep")
+  # end
+  # ```
   def write!(location : Path, & : Folder ->) : Folder
     create_folder do |folder|
       yield folder
@@ -68,6 +96,16 @@ module LuckyTemplate
   # **valid** - Files and folders exist within the given _location_
   #
   # Raises `::File::NotFoundError` if either a `File` or `Folder` does not exist
+  #
+  # Example:
+  # ```
+  # begin
+  #   templates_folder = LuckyTemplate.create_folder
+  #   LuckyTemplate.validate!(Path["./templates"], templates_folder) # => true
+  # rescue err : ::File::NotFoundError
+  #   puts err.message
+  # end
+  # ```
   def validate!(location : Path, folder : Folder) : Bool
     snapshot(folder).each do |filepath, type|
       path = location / filepath
@@ -84,6 +122,12 @@ module LuckyTemplate
   # Returns a `Bool` if the _folder_ is **valid** at the given _location_
   #
   # **valid** - Files and folders exist within the given _location_
+  #
+  # Example:
+  # ```
+  # templates_folder = LuckyTemplate.create_folder
+  # LuckyTemplate.validate!(Path["./templates"], templates_folder) # => true
+  # ```
   def validate?(location : Path, folder : Folder) : Bool
     validate!(location, folder)
   rescue
@@ -93,6 +137,30 @@ module LuckyTemplate
   # Returns a new `Snapshot` of all files and folders within this _folder_
   #
   # Raises `Error` if _folder_ is **locked**
+  #
+  # NOTE: **Does not** include `File` instances in results, because no use-case yet
+  #
+  # Example:
+  # ```
+  # folder = LuckyTemplate.create_folder do |dir|
+  #   dir.add_file(".keep")
+  #   dir.add_file("README.md")
+  #   dir.add_folder("src") do |src|
+  #     src.add_file("hello.cr")
+  #   end
+  # end
+  # puts LuckyTemplate.snapshot(folder)
+  # ```
+  #
+  # Output:
+  # ```
+  # {
+  #   ".keep" => LuckyTemplate::FileSystem::File,
+  #   "README.md" => LuckyTemplate::FileSystem::File,
+  #   "src" => LuckyTemplate::FileSystem::Folder,
+  #   "src/hello.cr" => LuckyTemplate::FileSystem::File,
+  # }
+  # ```
   def snapshot(folder : Folder) : Snapshot
     if folder.locked?
       raise Error.new("Cannot get snapshot if folder is locked")

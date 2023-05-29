@@ -12,17 +12,14 @@ module LuckyTemplate
     protected def initialize
     end
 
-    # Adds a new `File` to the folder with static *content*
+    # Adds a new `File` to the folder with _content_
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
-    # Examples:
-    #
+    # Examples(s):
     # ```
     # add_file("hello.txt", "hello world")
-    # ```
     #
-    # ```
     # add_file("hello.txt", <<-TEXT)
     # hello world
     # TEXT
@@ -31,17 +28,14 @@ module LuckyTemplate
       add_file(Path[name], content)
     end
 
-    # Adds a new `File` to the folder with static *content*
+    # Adds a new `File` to the folder with _content_
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
-    # Examples:
-    #
+    # Examples(s):
     # ```
     # add_file(Path["./hello.txt"], "hello world")
-    # ```
     #
-    # ```
     # add_file(Path["./hello.txt"], <<-TEXT)
     # hello world
     # TEXT
@@ -50,15 +44,17 @@ module LuckyTemplate
       add_file(path, File.new(content))
     end
 
-    # Adds a new `File` to the folder with `Fileable` interface
+    # Adds a new `File` to the folder with _klass_ implementing `Fileable` interface
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
-    # Example:
-    #
+    # Example(s):
     # ```
     # class Hello
     #   include LuckyTemplate::Fileable
+    #   def to_file(io : IO) : Nil
+    #     io << "hello"
+    #   end
     # end
     #
     # add_file("hello.txt", Hello.new)
@@ -67,15 +63,17 @@ module LuckyTemplate
       add_file(Path[name], klass)
     end
 
-    # Adds a new `File` to the folder with `Fileable` interface
+    # Adds a new `File` to the folder with _klass_ implementing `Fileable` interface
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
-    # Example:
-    #
+    # Example(s):
     # ```
     # class Hello
     #   include LuckyTemplate::Fileable
+    #   def to_file(io : IO) : Nil
+    #     io << "hello"
+    #   end
     # end
     #
     # add_file(Path["./hello.txt"], Hello.new)
@@ -88,12 +86,14 @@ module LuckyTemplate
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
-    # Example:
-    #
+    # Example(s):
     # ```
     # add_file("hello.txt") do |io|
     #   ECR.embed("hello.ecr", io)
     # end
+    #
+    # proc = LuckyTemplate::FileProc.new { |io| ECR.embed("hello.ecr", io) }
+    # add_file("hello.txt", &proc)
     # ```
     def add_file(name : String, &block : FileProc) : self
       add_file(Path[name], &block)
@@ -103,12 +103,14 @@ module LuckyTemplate
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
-    # Example:
-    #
+    # Example(s):
     # ```
     # add_file(Path["./hello.txt"]) do |io|
     #   ECR.embed("hello.ecr", io)
     # end
+    #
+    # proc = LuckyTemplate::FileProc.new { |io| ECR.embed("hello.ecr", io) }
+    # add_file(Path["./hello.txt"], &proc)
     # ```
     def add_file(path : Path, &block : FileProc) : self
       add_file(path, File.new(block))
@@ -118,8 +120,7 @@ module LuckyTemplate
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
-    # Example:
-    #
+    # Example(s):
     # ```
     # add_file("hello.txt")
     # ```
@@ -132,7 +133,6 @@ module LuckyTemplate
     # Raises `Error` if _path_ contains invalid path(s)
     #
     # Example:
-    #
     # ```
     # add_file(Path["./hello.txt"])
     # ```
@@ -144,7 +144,7 @@ module LuckyTemplate
       begin
         path = normalize_path(path)
       rescue Error
-        raise Error.new("Cannot add File without a path")
+        raise Error.new("Cannot add File with invalid path(s)")
       end
 
       folders = path.parts
@@ -169,15 +169,13 @@ module LuckyTemplate
     # Raises `Error` if _names_ contains invalid folder names
     #
     # Example:
-    #
     # ```
-    # add_folder(["a", "b", "c"]) do |folder| # folder == "c"
-    #   folder.add_file("hello.txt")
+    # add_folder(["a", "b", "c"]) do |c|
+    #   c.add_file("hello.txt")
     # end
     # ```
     #
     # Produces these folder paths:
-    #
     # ```text
     # a
     # a/b
@@ -188,7 +186,7 @@ module LuckyTemplate
       begin
         names = normalize_path(Path[names]).parts
       rescue Error
-        raise Error.new("Cannot add Folders without names")
+        raise Error.new("Cannot add Folders with invalid folder names")
       end
 
       prev : Folder? = nil
@@ -214,15 +212,13 @@ module LuckyTemplate
     # Raises `Error` if _path_ contains invalid folder names
     #
     # Example:
-    #
     # ```
-    # add_folder(Path["a/b/c"]) do |folder| # folder == "c"
-    #   folder.add_file("hello.txt")
+    # add_folder(Path["a/b/c"]) do |c|
+    #   c.add_file("hello.txt")
     # end
     # ```
     #
     # Produces these folder paths:
-    #
     # ```text
     # a
     # a/b
@@ -240,15 +236,13 @@ module LuckyTemplate
     # Raises `Error` if _names_ contains invalid folder names
     #
     # Example:
-    #
     # ```
-    # add_folder("a", "b", "c") do |folder| # folder == "c"
-    #   folder.add_file("hello.txt")
+    # add_folder("a", "b", "c") do |c|
+    #   c.add_file("hello.txt")
     # end
     # ```
     #
     # Produces these folder paths:
-    #
     # ```text
     # a
     # a/b
@@ -266,13 +260,11 @@ module LuckyTemplate
     # Raises `Error` if _names_ contains invalid folder names
     #
     # Example:
-    #
     # ```
     # add_folder(["a", "b", "c", "d"])
     # ```
     #
     # Produces these folder paths:
-    #
     # ```text
     # a
     # a/b
@@ -288,13 +280,11 @@ module LuckyTemplate
     # Raises `Error` if _path_ contains invalid folder names
     #
     # Example:
-    #
     # ```
     # add_folder(Path["a/b/c/d"])
     # ```
     #
     # Produces these folder paths:
-    #
     # ```text
     # a
     # a/b
@@ -310,13 +300,11 @@ module LuckyTemplate
     # Raises `Error` if _names_ contains invalid folder names
     #
     # Example:
-    #
     # ```
     # add_folder("a", "b", "c", "d")
     # ```
     #
     # Produces these folder paths:
-    #
     # ```text
     # a
     # a/b
@@ -334,7 +322,6 @@ module LuckyTemplate
     #   - existing folder is locked
     #
     # Example:
-    #
     # ```
     # another_folder = LuckyTemplate::Folder.new
     # LuckyTemplate.create_folder do |folder|
@@ -353,10 +340,12 @@ module LuckyTemplate
 
     # Checks if folder is _locked_
     #
-    # This usually means it's being yielded already.
+    # Usually means it's being yielded already.
     def locked? : Bool
       @locked
     end
+
+    delegate empty?, size, to: @files
 
     # NOTE: Does more than just `Path#normalize`
     #
