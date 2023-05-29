@@ -13,7 +13,7 @@ module LuckyTemplate
     protected def initialize
     end
 
-    # Adds a new `File` to the folder with _content_
+    # Adds a new file to the folder with _content_
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
@@ -29,7 +29,7 @@ module LuckyTemplate
       add_file(Path[name], content)
     end
 
-    # Adds a new `File` to the folder with _content_
+    # Adds a new file to the folder with _content_
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
@@ -45,7 +45,7 @@ module LuckyTemplate
       add_file(path, File.new(content))
     end
 
-    # Adds a new `File` to the folder with _klass_ implementing `Fileable` interface
+    # Adds a new file to the folder with _klass_ implementing `Fileable` interface
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
@@ -65,7 +65,7 @@ module LuckyTemplate
       add_file(Path[name], klass)
     end
 
-    # Adds a new `File` to the folder with _klass_ implementing `Fileable` interface
+    # Adds a new file to the folder with _klass_ implementing `Fileable` interface
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
@@ -85,7 +85,7 @@ module LuckyTemplate
       add_file(path, File.new(klass))
     end
 
-    # Adds a new `File` to the folder yielding an `IO`
+    # Adds a new file to the folder yielding an `IO`
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
@@ -95,14 +95,14 @@ module LuckyTemplate
     #   ECR.embed("hello.ecr", io)
     # end
     #
-    # proc = LuckyTemplate::FileProc.new { |io| ECR.embed("hello.ecr", io) }
+    # proc = LuckyTemplate::FileIO.new { |io| ECR.embed("hello.ecr", io) }
     # add_file("hello.txt", &proc)
     # ```
-    def add_file(name : String, &block : FileProc) : self
+    def add_file(name : String, &block : FileIO) : self
       add_file(Path[name], &block)
     end
 
-    # Adds a new `File` to the folder yielding an `IO`
+    # Adds a new file to the folder yielding an `IO`
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
@@ -112,14 +112,14 @@ module LuckyTemplate
     #   ECR.embed("hello.ecr", io)
     # end
     #
-    # proc = LuckyTemplate::FileProc.new { |io| ECR.embed("hello.ecr", io) }
+    # proc = LuckyTemplate::FileIO.new { |io| ECR.embed("hello.ecr", io) }
     # add_file(Path["./hello.txt"], &proc)
     # ```
-    def add_file(path : Path, &block : FileProc) : self
+    def add_file(path : Path, &block : FileIO) : self
       add_file(path, File.new(block))
     end
 
-    # Adds a new empty `File` to the folder
+    # Adds a new empty file to the folder
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
@@ -131,7 +131,7 @@ module LuckyTemplate
       add_file(Path[name])
     end
 
-    # Adds a new empty `File` to the folder
+    # Adds a new empty file to the folder
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
@@ -147,7 +147,7 @@ module LuckyTemplate
       begin
         path = normalize_path(path)
       rescue Error
-        raise Error.new("Cannot add File with invalid path(s)")
+        raise Error.new("Cannot add file with invalid path(s)")
       end
 
       folders = path.parts
@@ -189,7 +189,7 @@ module LuckyTemplate
       begin
         names = normalize_path(Path[names]).parts
       rescue Error
-        raise Error.new("Cannot add Folders with invalid folder names")
+        raise Error.new("Cannot add folders with invalid folder names")
       end
 
       prev : Folder? = nil
@@ -333,9 +333,9 @@ module LuckyTemplate
     # ```
     def insert_folder(name : String, folder : Folder) : self
       if folder == self
-        raise Error.new("Cannot add Folder equal to itself")
+        raise Error.new("Cannot add folder equal to itself")
       elsif folder.locked?
-        raise Error.new("Cannot add Folder that is locked")
+        raise Error.new("Cannot add locked folder")
       end
       @files[name] = folder
       self
@@ -348,7 +348,10 @@ module LuckyTemplate
       @locked
     end
 
-    delegate empty?, size, to: @files
+    # Checks if folder has no files or folders
+    def empty? : Bool
+      @files.empty?
+    end
 
     # NOTE: Does more than just `Path#normalize`
     #

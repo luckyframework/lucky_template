@@ -33,7 +33,7 @@ module LuckyTemplate
             io << error.file
           end
         else
-          "Expected: All files and folders within Folder to exist"
+          "Expected: All files and folders within folder to exist"
         end
       end
 
@@ -46,7 +46,7 @@ module LuckyTemplate
             io << error.file
           end
         else
-          "Expected: All files and folders within Folder not to exist"
+          "Expected: All files and folders within folder not to exist"
         end
       end
     end

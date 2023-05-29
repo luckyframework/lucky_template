@@ -1,6 +1,7 @@
 require "./lucky_template/version"
 require "./lucky_template/*"
 
+# Public interface for `lucky_template`
 module LuckyTemplate
   extend self
 
@@ -44,7 +45,7 @@ module LuckyTemplate
 
   # Writes the folder to disk at the given _location_
   #
-  # Raises `Error` if _folder_ is locked
+  # Raises `Error` if _folder_ is **locked**
   #
   # Example:
   # ```
@@ -93,11 +94,11 @@ module LuckyTemplate
 
   # Returns `true` if the _folder_ is **valid** at the given _location_
   #
-  # **valid** - Files and folders exist within the given _location_
+  # **valid** - files and folders exist within the given _location_
   #
   # NOTE: **Does not** check _contents_ of files, only the presence of them in the filesystem
   #
-  # Raises `::File::NotFoundError` if either a `File` or `Folder` does not exist
+  # Raises `::File::NotFoundError` if either a file or folder does not exist
   #
   # Example:
   # ```
@@ -123,7 +124,7 @@ module LuckyTemplate
 
   # Returns a `Bool` if the _folder_ is **valid** at the given _location_
   #
-  # **valid** - Files and folders exist within the given _location_
+  # **valid** - files and folders exist within the given _location_
   #
   # NOTE: **Does not** check _contents_ of files, only the presence of them in the filesystem
   #
@@ -142,7 +143,7 @@ module LuckyTemplate
   #
   # Raises `Error` if _folder_ is **locked**
   #
-  # NOTE: **Does not** include `File` instances in results, because no use-case yet
+  # NOTE: **Does not** include file instances in results, only paths
   #
   # Example:
   # ```

@@ -1,5 +1,5 @@
 module LuckyTemplate
-  # An interface for `File`
+  # An interface for a file
   #
   # Simple example using IO:
   # ```
@@ -46,16 +46,16 @@ module LuckyTemplate
   # end
   # ```
   module Fileable
-    # Appends contents to `IO` for `File`
+    # Appends contents to `IO` for a file
     abstract def to_file(io : IO) : Nil
   end
 
-  alias FileProc = IO ->
+  alias FileIO = IO ->
 
   # :nodoc:
-  alias FileType = String | Fileable | FileProc | Nil
+  alias FileType = String | Fileable | FileIO | Nil
 
-  # A `File` represents the contents of a file.
+  # :nodoc:
   class File
     protected def initialize(@file : FileType)
     end
@@ -65,7 +65,7 @@ module LuckyTemplate
       case file = @file
       in Fileable
         file.to_file(io)
-      in FileProc
+      in FileIO
         file.call(io)
       in String, Nil
         file.to_s(io)
