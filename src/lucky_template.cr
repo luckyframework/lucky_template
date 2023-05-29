@@ -1,7 +1,7 @@
 require "./lucky_template/version"
 require "./lucky_template/*"
 
-# Public interface for `lucky_template`
+# Public interface
 module LuckyTemplate
   extend self
 
