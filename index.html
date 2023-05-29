@@ -106,37 +106,170 @@
 <h1><a id="lucky-template" class="anchor" href="#lucky-template">  <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>lucky_template</h1>
-<p><span class="flag orange">TODO</span>  Write a description here</p>
+</a>LuckyTemplate</h1>
+<p><a href="https://github.com/mdwagner/lucky_template/actions/workflows/ci.yml"><img src="https://github.com/mdwagner/lucky_template/actions/workflows/ci.yml/badge.svg" alt="CI" /></a></p>
+<p><a href="https://github.com/mdwagner/lucky_template">LuckyTemplate</a> is a simple, yet versatile, library for creating file and folder structures as code templates. It has a lot in common with <a href="https://github.com/mosop/teeplate">Teeplate</a>, but it offers more capabilities and more ways to generate content.</p>
+<h2><a id="features" class="anchor" href="#features">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Features</h2>
+<ul>
+<li>Allows you to create a virtual file/folder structure, which can be written to disk anywhere.</li>
+<li>Supports using folders like building blocks, allowing you to reuse folders within other folders.</li>
+<li>File content can be static or dynamic</li>
+<li>Includes a Spec helper to validate that the files/folders within a location exist after writing to disk.</li>
+<li>Provides a snapshot of a folder structure for custom validation or for any other purpose like generating log output.</li>
+</ul>
 <h2><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Installation</h2>
 <ol>
-<li>
-<p>Add the dependency to your <code>shard.yml</code>:</p>
+<li>Add the dependency to your <code>shard.yml</code>:</li>
+</ol>
 <pre><code class="language-yaml">dependencies:
   lucky_template:
     github: mdwagner/lucky_template</code></pre>
-</li>
-<li>
-<p>Run <code>shards install</code></p>
-</li>
+<ol start="2">
+<li>Run <code>shards install</code></li>
 </ol>
-<h2><a id="usage" class="anchor" href="#usage">
+<h2><a id="quick-start" class="anchor" href="#quick-start">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Usage</h2>
-<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;lucky_template&quot;</span></code></pre>
-<p><span class="flag orange">TODO</span>  Write usage instructions here</p>
-<h2><a id="development" class="anchor" href="#development">
+</a>Quick Start</h2>
+<p>Here's a basic example of how to use LuckyTemplate:</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;lucky_template&quot;</span>
+
+<span class="t">LuckyTemplate</span>.write!(<span class="t">Path</span>[<span class="s">&quot;.&quot;</span>]) { }</code></pre>
+<p>This will create an empty folder at the current directory. See the sections below for more complex examples.</p>
+<h2><a id="examples" class="anchor" href="#examples">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Development</h2>
-<p><span class="flag orange">TODO</span>  Write development instructions here</p>
+</a>Examples</h2>
+<h3><a id="simple-template" class="anchor" href="#simple-template">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Simple Template</h3>
+<p>In this example, we create a simple README file using an ECR template, a welcome file, and a license file. We also create a new file and folder dynamically in a subfolder.</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;lucky_template&quot;</span>
+
+<span class="k">class</span> <span class="t">Readme</span>
+  <span class="k">include</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">Fileable</span>
+
+  <span class="k">def</span> <span class="m">initialize</span>(@name : <span class="t">String</span>)
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">to_file</span>(io : <span class="t">IO</span>) : <span class="t">Nil</span>
+    to_s(io)
+  <span class="k">end</span>
+
+  <span class="t">ECR</span>.def_to_s <span class="s">&quot;README.md.ecr&quot;</span>
+<span class="k">end</span>
+
+name <span class="o">=</span> <span class="s">&quot;John&quot;</span>
+folder <span class="o">=</span> <span class="t">LuckyTemplate</span>.write!(<span class="t">Path</span>[<span class="s">&quot;.&quot;</span>]) <span class="k">do</span> <span class="o">|</span>dir<span class="o">|</span>
+  dir.add_file(<span class="s">&quot;README.md&quot;</span>, <span class="t">Readme</span>.new(name))
+
+  dir.add_file(<span class="s">&quot;Welcome.md&quot;</span>) <span class="k">do</span> <span class="o">|</span>io<span class="o">|</span>
+    io <span class="o">&lt;&lt;</span> <span class="s">&quot;# Welcome &quot;</span> <span class="o">&lt;&lt;</span> name <span class="o">&lt;&lt;</span> <span class="s">&quot;!\n&quot;</span>
+  <span class="k">end</span>
+
+  dir.add_file(<span class="s">&quot;LICENSE&quot;</span>, <span class="s">&lt;&lt;-LICENSE</span>)
+<span class="s">  The MIT License (MIT)
+  ...
+  LICENSE</span>
+
+  dir.add_folder(<span class="s">&quot;src&quot;</span>) <span class="k">do</span> <span class="o">|</span>src<span class="o">|</span>
+    src.add_file(<span class="s">&quot;.keep&quot;</span>)
+
+    src.add_folder(name.downcase) <span class="k">do</span> <span class="o">|</span>name_dir<span class="o">|</span>
+      name_dir.add_file(<span class="s">&quot;</span><span class="i">#{</span>name.downcase<span class="i">}</span><span class="s">.cr&quot;</span>, <span class="s">&lt;&lt;-CR</span>)
+<span class="s">      class </span><span class="i">#{</span>name<span class="i">}</span><span class="s">
+      end
+
+      pp! </span><span class="i">#{</span>name<span class="i">}</span><span class="s">.new
+      CR</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
+<h3><a id="creating-multiple-folders" class="anchor" href="#creating-multiple-folders">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Creating Multiple Folders</h3>
+<p>You can also create multiple folders at once or nest them within other folders:</p>
+<pre><code class="language-crystal">folder1 <span class="o">=</span> <span class="t">LuckyTemplate</span>.create_folder <span class="k">do</span> <span class="o">|</span>dir<span class="o">|</span>
+  dir.add_file(<span class="s">&quot;folder_one.txt&quot;</span>)
+<span class="k">end</span>
+folder2 <span class="o">=</span> <span class="t">LuckyTemplate</span>.create_folder <span class="k">do</span> <span class="o">|</span>dir<span class="o">|</span>
+  dir.add_file(<span class="s">&quot;folder_two.txt&quot;</span>)
+<span class="k">end</span>
+folder3 <span class="o">=</span> <span class="t">LuckyTemplate</span>.create_folder <span class="k">do</span> <span class="o">|</span>dir<span class="o">|</span>
+  dir.add_file(<span class="s">&quot;folder_three.txt&quot;</span>)
+  dir.insert_folder(<span class="s">&quot;folder1&quot;</span>, folder1)
+  dir.insert_folder(<span class="s">&quot;folder2&quot;</span>, folder2)
+<span class="k">end</span>
+<span class="t">LuckyTemplate</span>.write!(<span class="t">Path</span>[<span class="s">&quot;.&quot;</span>], folder3)</code></pre>
+<h3><a id="snapshot-folders" class="anchor" href="#snapshot-folders">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Snapshot Folders</h3>
+<p>Another great feature is that you can take snapshots of folder structures:</p>
+<pre><code class="language-crystal">snapshot <span class="o">=</span> <span class="t">LuckyTemplate</span>.snapshot(folder3)
+
+snapshot.each <span class="k">do</span> <span class="o">|</span>path, <span class="k">type</span><span class="o">|</span>
+  <span class="k">case</span> <span class="k">type</span>
+  <span class="k">in</span> .file?
+    puts <span class="s">&quot;File: </span><span class="i">#{</span>path<span class="i">}</span><span class="s">&quot;</span>
+  <span class="k">in</span> .folder?
+    puts <span class="s">&quot;Folder: </span><span class="i">#{</span>path<span class="i">}</span><span class="s">&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
+<h3><a id="using-non-crystal-templates" class="anchor" href="#using-non-crystal-templates">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Using Non-Crystal Templates</h3>
+<p>If you prefer to use another template engine besides Crystal's, you can do so by creating a running process, as shown in the following example with gettext <code>envsubst</code>:</p>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">ExternalTemplate</span>
+  <span class="k">include</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">Fileable</span>
+
+  <span class="k">def</span> <span class="m">initialize</span>(@name : <span class="t">String</span>)
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">to_file</span>(io : <span class="t">IO</span>) : <span class="t">Nil</span>
+    input <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.new(<span class="s">&quot;Hello $NAME!&quot;</span>)
+    <span class="t">Process</span>.run(
+      command: <span class="s">&quot;envsubst&quot;</span>,
+      input: input,
+      output: io,
+      env: {
+        <span class="s">&quot;NAME&quot;</span> <span class="o">=&gt;</span> @name,
+      }
+    )
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="t">LuckyTemplate</span>.write!(<span class="t">Path</span>[<span class="s">&quot;.&quot;</span>]) <span class="k">do</span> <span class="o">|</span>dir<span class="o">|</span>
+  dir.add_file(<span class="s">&quot;external_file&quot;</span>, <span class="t">ExternalTemplate</span>.new(<span class="s">&quot;John&quot;</span>))
+<span class="k">end</span></code></pre>
+<h2><a id="faq" class="anchor" href="#faq">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>FAQ</h2>
+<ul>
+<li>Why create this if Teeplate already exists? Initially, I tried to add Windows support to Teeplate, but ran into some issues, that prompted me to just ask the question: Is this effort worth it? <a href="https://github.com/luckyframework/lucky/discussions/1812">This discussion</a> gave me the push I needed to create a POC (proof-of-concept), which this library is the result of.</li>
+<li>Does it support Windows? Yes, it runs the spec suite on Linux &amp; Windows.</li>
+<li>Why do folder snapshots not contain the file content? Because I haven't found a good enough use-case to support this. Snapshots are supposed to be an escape hatch, where you can get the file/folder structure, but decide what you would like to do with it. Having it include file content doesn't really make sense when LuckyTemplate already writes it to disk for you. But, if you have a good use-case that I haven't thought of, open an issue!</li>
+<li>Can I use it with <code>crinja</code>, <code>kilt</code>, <code>slang</code>, <insert templating language>...? Yes, or at least, that's the goal! If you find it doesn't work with something, open an issue.</li>
+</ul>
 <h2><a id="contributing" class="anchor" href="#contributing">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
