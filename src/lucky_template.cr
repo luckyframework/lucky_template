@@ -102,6 +102,8 @@ module LuckyTemplate
   #
   # Raises `::File::NotFoundError` if either a file or folder does not exist
   #
+  # Raises `Error` if _folder_ is **locked**
+  #
   # Example:
   # ```
   # begin
@@ -112,6 +114,9 @@ module LuckyTemplate
   # end
   # ```
   def validate!(location : Path, folder : Folder) : Bool
+    if folder.locked?
+      raise Error.new("Cannot validate while folder is locked")
+    end
     snapshot(folder).each do |filepath, type|
       path = location / filepath
       case type
@@ -130,6 +135,8 @@ module LuckyTemplate
   #
   # NOTE: **Does not** check _contents_ of files, only the presence of them in the filesystem
   #
+  # Raises `Error` if _folder_ is **locked**
+  #
   # Example:
   # ```
   # templates_folder = LuckyTemplate.create_folder
@@ -137,6 +144,8 @@ module LuckyTemplate
   # ```
   def validate?(location : Path, folder : Folder) : Bool
     validate!(location, folder)
+  rescue err : Error
+    raise err
   rescue
     false
   end
