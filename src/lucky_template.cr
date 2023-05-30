@@ -47,6 +47,8 @@ module LuckyTemplate
   #
   # Raises `Error` if _folder_ is **locked**
   #
+  # Raises `::File::AlreadyExistsError` if _location_ is not an existing folder
+  #
   # Example:
   # ```
   # templates_folder = LuckyTemplate.create_folder
