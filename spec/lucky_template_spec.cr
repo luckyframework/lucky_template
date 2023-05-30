@@ -54,7 +54,7 @@ describe LuckyTemplate do
 
       it "raises if folder is locked" do
         LuckyTemplate.create_folder do |folder|
-          expect_raises(LuckyTemplate::Error) do
+          expect_raises(LuckyTemplate::Error, "folder is locked") do
             LuckyTemplate.write!(Path["."], folder)
           end
         end
@@ -86,7 +86,7 @@ describe LuckyTemplate do
 
     it "raises if folder is locked" do
       LuckyTemplate.create_folder do |folder|
-        expect_raises(LuckyTemplate::Error) do
+        expect_raises(LuckyTemplate::Error, "folder is locked") do
           LuckyTemplate.snapshot(folder)
         end
       end
@@ -142,7 +142,7 @@ describe LuckyTemplate do
 
     it "raises if folder is locked" do
       folder = LuckyTemplate.write!(Path["."]) do |dir|
-        expect_raises(LuckyTemplate::Error) do
+        expect_raises(LuckyTemplate::Error, "folder is locked") do
           LuckyTemplate.validate!(Path["."], dir)
         end
       end
@@ -168,7 +168,97 @@ describe LuckyTemplate do
 
   describe "Folder" do
     describe "#add_file" do
-      pending "WIP"
+      context "with name" do
+        it "adds file with string content" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file("hello.txt", "hello world with string")
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with string")
+        end
+
+        it "adds file with interpolated string content" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            name = "John"
+            folder.add_file("hello.txt", "Hello #{name}")
+          end
+          File.read(Path["./hello.txt"]).should eq("Hello John")
+        end
+
+        it "adds file with string content using heredoc" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file("hello.txt", <<-TEXT)
+            hello world with heredoc
+            TEXT
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with heredoc")
+        end
+
+        it "adds file with interpolated string content using heredoc" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            name = "Jane"
+            folder.add_file("hello.txt", <<-TEXT)
+            Hello #{name}
+            TEXT
+          end
+          File.read(Path["./hello.txt"]).should eq("Hello Jane")
+        end
+
+        it "adds file with no content" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file("hello.txt")
+          end
+          File.size(Path["./hello.txt"]).should eq(0)
+        end
+
+        it "adds file with block" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file("hello.txt") do |io|
+              io << "hello world with block"
+            end
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with block")
+        end
+
+        it "adds file with proc" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            proc = LuckyTemplate::FileIO.new { |io| io << "hello world with proc" }
+            folder.add_file("hello.txt", &proc)
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with proc")
+        end
+
+        it "adds file with class that implements Fileable" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file("hello.txt", HelloWorldClass.new)
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with class")
+        end
+
+        it "adds file with struct that implements Fileable" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file("hello.txt", HelloWorldStruct.new)
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with struct")
+        end
+
+        it "adds file when name is a POSIX path" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file("./hello.txt")
+          end
+          File.size(Path["./hello.txt"]).should eq(0)
+        end
+
+        it "adds nested file when name is a POSIX path" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file("./a/b/c/hello.txt")
+          end
+          File.size(Path["./a/b/c/hello.txt"]).should eq(0)
+        end
+      end
+
+      context "with path" do
+        pending "WIP"
+      end
     end
 
     describe "#add_folder" do
@@ -176,15 +266,60 @@ describe LuckyTemplate do
     end
 
     describe "#insert_folder" do
-      pending "WIP"
+      it "raises if folder is itself" do
+        LuckyTemplate.create_folder do |folder|
+          expect_raises(LuckyTemplate::Error, "folder equal to itself") do
+            folder.insert_folder("folder", folder)
+          end
+        end
+      end
+
+      it "raises if folder is locked" do
+        LuckyTemplate.create_folder do |parent|
+          parent.add_folder("child") do |child|
+            expect_raises(LuckyTemplate::Error, "locked folder") do
+              child.insert_folder("parent", parent)
+            end
+          end
+        end
+      end
+
+      it "raises if folder is locked by adding child folder to parent again" do
+        LuckyTemplate.create_folder do |parent|
+          parent.add_folder("child") do |child|
+            expect_raises(LuckyTemplate::Error, "locked folder") do
+              parent.insert_folder("child2", child)
+            end
+          end
+        end
+      end
     end
 
     describe "#locked?" do
-      pending "WIP"
+      it "returns true if locked" do
+        LuckyTemplate.create_folder do |folder|
+          folder.locked?.should be_true
+        end
+      end
+
+      it "returns false if not locked" do
+        folder = LuckyTemplate.create_folder
+        folder.locked?.should be_false
+      end
     end
 
     describe "#empty?" do
-      pending "WIP"
+      it "returns true on empty folder" do
+        folder = LuckyTemplate.create_folder
+        folder.empty?.should be_true
+      end
+
+      it "returns false on modified folder" do
+        LuckyTemplate.create_folder do |folder|
+          folder.add_file(".keep")
+          folder.empty?.should be_false
+        end
+      end
     end
   end
 end

@@ -157,12 +157,12 @@ module LuckyTemplate
         add_file(filename, file)
       else
         add_folder(folders) do |folder|
-          add_file(filename, file)
+          folder.add_file(filename, file)
         end
       end
     end
 
-    private def add_file(name : String, file : File) : self
+    protected def add_file(name : String, file : File) : self
       @files[name] = file
       self
     end
