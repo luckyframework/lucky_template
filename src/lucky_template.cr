@@ -135,8 +135,6 @@ module LuckyTemplate
   #
   # NOTE: **Does not** check _contents_ of files, only the presence of them in the filesystem
   #
-  # Raises `Error` if _folder_ is **locked**
-  #
   # Example:
   # ```
   # templates_folder = LuckyTemplate.create_folder
@@ -144,8 +142,6 @@ module LuckyTemplate
   # ```
   def validate?(location : Path, folder : Folder) : Bool
     validate!(location, folder)
-  rescue err : Error
-    raise err
   rescue
     false
   end

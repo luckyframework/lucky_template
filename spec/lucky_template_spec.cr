@@ -164,14 +164,6 @@ describe LuckyTemplate do
       File.delete(Path["./.keep"])
       LuckyTemplate.validate?(Path["."], folder).should be_false
     end
-
-    it "raises if folder is locked" do
-      folder = LuckyTemplate.write!(Path["."]) do |dir|
-        expect_raises(LuckyTemplate::Error) do
-          LuckyTemplate.validate?(Path["."], dir)
-        end
-      end
-    end
   end
 
   describe "Folder" do
