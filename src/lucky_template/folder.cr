@@ -5,7 +5,7 @@ module LuckyTemplate
     alias Files = File | Folder
 
     # :nodoc:
-    DOT_PATHS = ["..", "."]
+    DOT_PATHS = ["..", ".", "~"]
 
     @files = {} of String => Files
     @locked = false
@@ -353,11 +353,9 @@ module LuckyTemplate
       @files.empty?
     end
 
-    # NOTE: Does more than just `Path#normalize`
-    #
-    # Removes "..", ".", and "/" (root) paths
+    # Removes various path prefixes
     private def normalize_path(path : Path) : Path
-      path = path.normalize
+      path = path.expand(base: ".", home: ".", expand_base: false)
       path.parts.tap do |parts|
         if path.root || DOT_PATHS.includes?(parts[0])
           parts.shift

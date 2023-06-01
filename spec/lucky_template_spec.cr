@@ -257,12 +257,241 @@ describe LuckyTemplate do
       end
 
       context "with path" do
-        pending "WIP"
+        it "adds file with string content" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["hello.txt"], "hello world with string")
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with string")
+        end
+
+        it "adds file with interpolated string content" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            name = "John"
+            folder.add_file(Path["hello.txt"], "Hello #{name}")
+          end
+          File.read(Path["./hello.txt"]).should eq("Hello John")
+        end
+
+        it "adds file with string content using heredoc" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["hello.txt"], <<-TEXT)
+            hello world with heredoc
+            TEXT
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with heredoc")
+        end
+
+        it "adds file with interpolated string content using heredoc" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            name = "Jane"
+            folder.add_file(Path["hello.txt"], <<-TEXT)
+            Hello #{name}
+            TEXT
+          end
+          File.read(Path["./hello.txt"]).should eq("Hello Jane")
+        end
+
+        it "adds file with no content" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["hello.txt"])
+          end
+          File.size(Path["./hello.txt"]).should eq(0)
+        end
+
+        it "adds file with block" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["hello.txt"]) do |io|
+              io << "hello world with block"
+            end
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with block")
+        end
+
+        it "adds file with proc" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            proc = LuckyTemplate::FileIO.new { |io| io << "hello world with proc" }
+            folder.add_file(Path["hello.txt"], &proc)
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with proc")
+        end
+
+        it "adds file with class that implements Fileable" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["hello.txt"], HelloWorldClass.new)
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with class")
+        end
+
+        it "adds file with struct that implements Fileable" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["hello.txt"], HelloWorldStruct.new)
+          end
+          File.read(Path["./hello.txt"]).should eq("hello world with struct")
+        end
+
+        it "adds nested file" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["a/b/c/hello.txt"])
+          end
+          File.size(Path["./a/b/c/hello.txt"]).should eq(0)
+        end
+
+        it "adds file removing '..' prefix" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["../hello.txt"], "..")
+          end
+          File.read(Path["./hello.txt"]).should eq("..")
+        end
+
+        it "adds file removing '.' prefix" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["./hello.txt"], ".")
+          end
+          File.read(Path["./hello.txt"]).should eq(".")
+        end
+
+        it "adds file removing '/' prefix" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["/hello.txt"], "/")
+          end
+          File.read(Path["./hello.txt"]).should eq("/")
+        end
+
+        it "adds file removing '~' prefix" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["~/hello.txt"], "~")
+          end
+          File.read(Path["./hello.txt"]).should eq("~")
+        end
+
+        it "adds file removing trailing slash" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["~/hello/"], "trailing slash")
+          end
+          File.read(Path["./hello"]).should eq("trailing slash")
+        end
+
+        it "adds file normalizing nested paths" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_file(Path["../a/b/../bb/c.txt"], "normalize paths")
+          end
+          File.read(Path["./a/bb/c.txt"]).should eq("normalize paths")
+        end
+
+        it "raises if empty string" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            expect_raises(LuckyTemplate::Error, "invalid path") do
+              folder.add_file(Path[""])
+            end
+          end
+        end
+
+        it "raises if empty path" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            expect_raises(LuckyTemplate::Error, "invalid path") do
+              folder.add_file(Path.new)
+            end
+          end
+        end
+
+        it "raises if multiple '..' parts" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            expect_raises(LuckyTemplate::Error, "invalid folder names") do
+              folder.add_file(Path["../../hello.txt"])
+            end
+          end
+        end
       end
     end
 
     describe "#add_folder" do
-      pending "WIP"
+      context "with block" do
+        it "adds nested folders as array" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_folder(["a", "b", "c"]) do |c|
+              c.add_file("hello.txt")
+            end
+          end
+          File.size(Path["./a/b/c/hello.txt"]).should eq(0)
+        end
+
+        it "adds nested folders as path" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_folder(Path["a/b/c"]) do |c|
+              c.add_file("hello.txt")
+            end
+          end
+          File.size(Path["./a/b/c/hello.txt"]).should eq(0)
+        end
+
+        it "adds nested folders as splat" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_folder("a", "b", "c") do |c|
+              c.add_file("hello.txt")
+            end
+          end
+          File.size(Path["./a/b/c/hello.txt"]).should eq(0)
+        end
+
+        it "raises if empty string" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            expect_raises(LuckyTemplate::Error, "invalid folder names") do
+              folder.add_folder("") do |dir|
+                dir.add_file(".keep")
+              end
+            end
+          end
+        end
+
+        it "raises if multiple empty strings" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            expect_raises(LuckyTemplate::Error, "invalid folder names") do
+              folder.add_folder("", "") do |dir|
+                dir.add_file(".keep")
+              end
+            end
+          end
+        end
+      end
+
+      context "without block" do
+        it "adds nested folders as array" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_folder(["a", "b", "c"])
+          end
+          Dir.exists?(Path["./a/b/c"]).should be_true
+        end
+
+        it "adds nested folders as path" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_folder(Path["a/b/c"])
+          end
+          Dir.exists?(Path["./a/b/c"]).should be_true
+        end
+
+        it "adds nested folders as splat" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            folder.add_folder("a", "b", "c")
+          end
+          Dir.exists?(Path["./a/b/c"]).should be_true
+        end
+
+        it "raises if empty string" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            expect_raises(LuckyTemplate::Error, "invalid folder names") do
+              folder.add_folder("")
+            end
+          end
+        end
+
+        it "raises if multipl empty strings" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            expect_raises(LuckyTemplate::Error, "invalid folder names") do
+              folder.add_folder("", "")
+            end
+          end
+        end
+      end
     end
 
     describe "#insert_folder" do
