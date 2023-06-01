@@ -31,7 +31,8 @@ Here's a basic example of how to use LuckyTemplate:
 ```crystal
 require "lucky_template"
 
-LuckyTemplate.write!(Path["."]) { }
+LuckyTemplate.write!(Path["."]) do |folder|
+end
 ```
 
 This will create an empty folder at the current directory. See the sections below for more complex examples.
