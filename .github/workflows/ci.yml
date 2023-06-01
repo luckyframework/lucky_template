@@ -21,4 +21,4 @@ jobs:
         with:
           crystal: ${{ matrix.crystal_version }}
       - name: Run tests
-        run: crystal spec --tap
+        run: crystal spec -v
