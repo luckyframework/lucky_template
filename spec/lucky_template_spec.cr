@@ -551,4 +551,26 @@ describe LuckyTemplate do
       end
     end
   end
+
+  context "example" do
+    it "uses ECR as template" do
+      template = EcrTemplate.new
+      folder = LuckyTemplate.write!(Path["."]) do |dir|
+        dir.add_file("template.txt", template)
+      end
+      folder.should be_valid_at(Path["."])
+      File.read(Path["./template.txt"]).should eq(template.expected_content)
+    end
+
+    it "uses envsubst as external template" do
+      pending!("envsubst not found in PATH") unless Process.find_executable("envsubst")
+
+      external_process = ExternalProcessExample.new
+      folder = LuckyTemplate.write!(Path["."]) do |dir|
+        dir.add_file("external_process.txt", external_process)
+      end
+      folder.should be_valid_at(Path["."])
+      File.read(Path["./external_process.txt"]).should eq(external_process.expected_content)
+    end
+  end
 end
