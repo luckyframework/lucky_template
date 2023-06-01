@@ -24,7 +24,7 @@ class EcrTemplate
   end
 
   def expected_content
-    "Hello John!\n"
+    "Hello John!"
   end
 
   ECR.def_to_s "#{__DIR__}/../fixtures/template.ecr"

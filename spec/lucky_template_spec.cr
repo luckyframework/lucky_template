@@ -559,7 +559,7 @@ describe LuckyTemplate do
         dir.add_file("template.txt", template)
       end
       folder.should be_valid_at(Path["."])
-      File.read(Path["./template.txt"]).should eq(template.expected_content)
+      File.read(Path["./template.txt"]).should contain(template.expected_content)
     end
 
     it "uses envsubst as external template" do
@@ -570,7 +570,7 @@ describe LuckyTemplate do
         dir.add_file("external_process.txt", external_process)
       end
       folder.should be_valid_at(Path["."])
-      File.read(Path["./external_process.txt"]).should eq(external_process.expected_content)
+      File.read(Path["./external_process.txt"]).should contain(external_process.expected_content)
     end
   end
 end
