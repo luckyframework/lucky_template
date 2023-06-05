@@ -378,6 +378,16 @@ describe LuckyTemplate do
           File.read(Path["./a/bb/c.txt"]).should eq("normalize paths")
         end
 
+        it "adds nested files under same folder" do
+          folder = LuckyTemplate.create_folder do |dir|
+            dir.add_file(Path["./a/.keep"])
+            dir.add_file(Path["./a/hello.txt"])
+          end
+          snapshot = LuckyTemplate.snapshot(folder)
+          snapshot.keys.should contain("a/.keep")
+          snapshot.keys.should contain("a/hello.txt")
+        end
+
         it "raises if empty string" do
           LuckyTemplate.write!(Path["."]) do |folder|
             expect_raises(LuckyTemplate::Error, "invalid path") do
