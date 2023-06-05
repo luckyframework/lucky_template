@@ -194,17 +194,30 @@ module LuckyTemplate
 
       prev : Folder? = nil
       names.each_with_index do |name, index|
-        current_folder = Folder.new
+        _folder : Folder = prev || self
+
+        if found_file = _folder.files[name]?
+          case found_file
+          in Folder
+            # If a Folder is found in folder with same name,
+            # reuse Folder
+            current_folder = found_file
+          in File
+            # If a File is found in folder with same name,
+            # overwrite as Folder
+            current_folder = Folder.new
+          end
+        else
+          current_folder = Folder.new
+        end
+
         if index == names.size - 1
           current_folder.lock do
             yield current_folder
           end
         end
-        if prev_folder = prev
-          prev_folder.insert_folder(name, current_folder)
-        else
-          insert_folder(name, current_folder)
-        end
+        _folder.insert_folder(name, current_folder)
+
         prev = current_folder
       end
       self

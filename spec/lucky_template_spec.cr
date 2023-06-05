@@ -484,10 +484,19 @@ describe LuckyTemplate do
           end
         end
 
-        it "raises if multipl empty strings" do
+        it "raises if multiple empty strings" do
           LuckyTemplate.write!(Path["."]) do |folder|
             expect_raises(LuckyTemplate::Error, "invalid folder names") do
               folder.add_folder("", "")
+            end
+          end
+        end
+
+        it "raises if empty array" do
+          LuckyTemplate.write!(Path["."]) do |folder|
+            expect_raises(LuckyTemplate::Error, "invalid folder names") do
+              folders = [] of String
+              folder.add_folder(folders)
             end
           end
         end
@@ -553,6 +562,41 @@ describe LuckyTemplate do
   end
 
   context "example" do
+    it "creates basic repository" do
+      project_name = "example"
+      folder = LuckyTemplate.write!(Path["."]) do |dir|
+        dir.add_file("README.md", "# #{project_name}\n")
+
+        dir.add_file(Path["./src/.keep"])
+
+        dir.add_file(Path["./src/#{project_name}.cr"], <<-CRYSTAL)
+        class #{project_name.camelcase}
+          def run
+            puts "Hello World!"
+          end
+        end
+        #{project_name.camelcase}.new.run\n
+        CRYSTAL
+
+        dir.add_folder("spec") do |spec|
+          spec.add_file("spec_helper.cr", <<-CRYSTAL)
+          require "../src/#{project_name}"\n
+          CRYSTAL
+
+          spec.add_file("#{project_name}_spec.cr", <<-CRYSTAL)
+          require "./spec_helper"
+
+          describe #{project_name.camelcase} do
+            it "works" do
+              true.should be_false
+            end
+          end\n
+          CRYSTAL
+        end
+      end
+      folder.should be_valid_at(Path["."])
+    end
+
     it "uses ECR as template" do
       template = EcrTemplate.new
       folder = LuckyTemplate.write!(Path["."]) do |dir|
