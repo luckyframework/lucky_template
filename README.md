@@ -32,10 +32,11 @@ Here's a basic example of how to use LuckyTemplate:
 require "lucky_template"
 
 LuckyTemplate.write!(Path["."]) do |folder|
+  folder.add_file(".keep")
 end
 ```
 
-This will create an empty folder at the current directory. See the sections below for more complex examples.
+This will create a folder at the current directory with an empty `.keep` file. See the sections below for more complex examples.
 
 ## Examples
 
