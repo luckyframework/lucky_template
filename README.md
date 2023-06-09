@@ -1,8 +1,8 @@
 # LuckyTemplate
 
-[![CI](https://github.com/mdwagner/lucky_template/actions/workflows/ci.yml/badge.svg)](https://github.com/mdwagner/lucky_template/actions/workflows/ci.yml)
+[![CI](https://github.com/luckyframework/lucky_template/actions/workflows/ci.yml/badge.svg)](https://github.com/mdwagner/lucky_template/actions/workflows/ci.yml)
 
-[LuckyTemplate](https://github.com/mdwagner/lucky_template) is a simple, yet versatile, library for creating file and folder structures as code templates. It has a lot in common with [Teeplate](https://github.com/mosop/teeplate), but it offers more capabilities and more ways to generate content.
+[LuckyTemplate](https://github.com/luckyframework/lucky_template) is a simple, yet versatile, library for creating file and folder structures as code templates. It has a lot in common with [Teeplate](https://github.com/mosop/teeplate), but it offers more capabilities and more ways to generate content.
 
 ## Features
 
@@ -19,7 +19,7 @@
   ```yaml
   dependencies:
     lucky_template:
-      github: mdwagner/lucky_template
+      github: luckyframework/lucky_template
   ```
 
 2. Run `shards install`
@@ -162,7 +162,7 @@ end
 
 ## Contributing
 
-1. Fork it (<https://github.com/mdwagner/lucky_template/fork>)
+1. Fork it (<https://github.com/luckyframework/lucky_template/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
