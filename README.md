@@ -20,6 +20,7 @@
   dependencies:
     lucky_template:
       github: luckyframework/lucky_template
+      version: ~> 0.1.0
   ```
 
 2. Run `shards install`
