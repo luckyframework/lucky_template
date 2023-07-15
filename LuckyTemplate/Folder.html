@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 1.7.3">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.8.2">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="lucky_template">
 
@@ -25,6 +26,11 @@
     <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
   </symbol>
 </svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -149,7 +155,7 @@
   </h2>
   
     
-      <a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L3" target="_blank">
+      <a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L3" target="_blank">
         lucky_template/folder.cr
       </a>
     
@@ -175,56 +181,56 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#add_file%28name%3AString%2Ccontent%3AString%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, content : String) : <span class="k">self</span></a>
+        <a href="#add_file%28name%3AString%2Ccontent%3AString%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, content : String, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span></a>
         
           <div class="summary"><p>Adds a new file to the folder with <em>content</em></p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add_file%28path%3APath%2Ccontent%3AString%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, content : String) : <span class="k">self</span></a>
+        <a href="#add_file%28path%3APath%2Ccontent%3AString%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, content : String, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span></a>
         
           <div class="summary"><p>Adds a new file to the folder with <em>content</em></p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add_file%28name%3AString%2Cklass%3AFileable%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, klass : Fileable) : <span class="k">self</span></a>
+        <a href="#add_file%28name%3AString%2Cklass%3AFileable%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, klass : Fileable, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span></a>
         
           <div class="summary"><p>Adds a new file to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add_file%28path%3APath%2Cklass%3AFileable%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, klass : Fileable) : <span class="k">self</span></a>
+        <a href="#add_file%28path%3APath%2Cklass%3AFileable%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, klass : Fileable, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span></a>
         
           <div class="summary"><p>Adds a new file to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add_file%28name%3AString%2C%26block%3AFileIO%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, &block : FileIO) : <span class="k">self</span></a>
+        <a href="#add_file%28name%3AString%2Cperms%3AInt16%7CNil%3Dnil%2C%26block%3AFileIO%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, perms : Int16 | Nil = <span class="n">nil</span>, &block : FileIO) : <span class="k">self</span></a>
         
           <div class="summary"><p>Adds a new file to the folder yielding an <code>IO</code></p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add_file%28path%3APath%2C%26block%3AFileIO%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, &block : FileIO) : <span class="k">self</span></a>
+        <a href="#add_file%28path%3APath%2Cperms%3AInt16%7CNil%3Dnil%2C%26block%3AFileIO%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, perms : Int16 | Nil = <span class="n">nil</span>, &block : FileIO) : <span class="k">self</span></a>
         
           <div class="summary"><p>Adds a new file to the folder yielding an <code>IO</code></p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add_file%28name%3AString%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String) : <span class="k">self</span></a>
+        <a href="#add_file%28name%3AString%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(name : String, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span></a>
         
           <div class="summary"><p>Adds a new empty file to the folder</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add_file%28path%3APath%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path) : <span class="k">self</span></a>
+        <a href="#add_file%28path%3APath%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method" class="signature"><strong>#add_file</strong>(path : Path, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span></a>
         
           <div class="summary"><p>Adds a new empty file to the folder</p></div>
         
@@ -337,73 +343,80 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="add_file(name:String,content:String):self-instance-method">
+    <div class="entry-detail" id="add_file(name:String,content:String,perms:Int16|Nil=nil):self-instance-method">
       <div class="signature">
         
-        def <strong>add_file</strong>(name : String, content : String) : <span class="k">self</span>
+        def <strong>add_file</strong>(name : String, content : String, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#add_file%28name%3AString%2Ccontent%3AString%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#add_file%28name%3AString%2Ccontent%3AString%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Adds a new file to the folder with <em>content</em></p>
+<p>Optionally, provide <em>perms</em> to specify file permissions</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>name</em> contains invalid path(s)</p>
 <p>Examples(s):</p>
 <pre><code class="language-crystal">add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="s">&quot;hello world&quot;</span>)
 
 add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="s">&lt;&lt;-TEXT</span>)
 <span class="s">hello world
-TEXT</span></code></pre>
+TEXT</span>
+
+add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="s">&quot;hello world&quot;</span>, <span class="n">0o644</span>)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="add_file(path:Path,content:String):self-instance-method">
+    <div class="entry-detail" id="add_file(path:Path,content:String,perms:Int16|Nil=nil):self-instance-method">
       <div class="signature">
         
-        def <strong>add_file</strong>(path : Path, content : String) : <span class="k">self</span>
+        def <strong>add_file</strong>(path : Path, content : String, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#add_file%28path%3APath%2Ccontent%3AString%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#add_file%28path%3APath%2Ccontent%3AString%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Adds a new file to the folder with <em>content</em></p>
+<p>Optionally, provide <em>perms</em> to specify file permissions</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>path</em> contains invalid path(s)</p>
 <p>Examples(s):</p>
 <pre><code class="language-crystal">add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="s">&quot;hello world&quot;</span>)
 
 add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="s">&lt;&lt;-TEXT</span>)
 <span class="s">hello world
-TEXT</span></code></pre>
+TEXT</span>
+
+add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="s">&quot;hello world&quot;</span>, <span class="n">0o644</span>)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L44" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L52" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="add_file(name:String,klass:Fileable):self-instance-method">
+    <div class="entry-detail" id="add_file(name:String,klass:Fileable,perms:Int16|Nil=nil):self-instance-method">
       <div class="signature">
         
-        def <strong>add_file</strong>(name : String, klass : <a href="../LuckyTemplate/Fileable.html">Fileable</a>) : <span class="k">self</span>
+        def <strong>add_file</strong>(name : String, klass : <a href="../LuckyTemplate/Fileable.html">Fileable</a>, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#add_file%28name%3AString%2Cklass%3AFileable%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#add_file%28name%3AString%2Cklass%3AFileable%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Adds a new file to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p>
+<p>Optionally, provide <em>perms</em> to specify file permissions</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>name</em> contains invalid path(s)</p>
 <p>Example(s):</p>
 <pre><code class="language-crystal"><span class="k">class</span> <span class="t">Hello</span>
@@ -414,28 +427,31 @@ TEXT</span></code></pre>
   <span class="k">end</span>
 <span class="k">end</span>
 
-add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="t">Hello</span>.new)</code></pre>
+add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="t">Hello</span>.new)
+
+add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="t">Hello</span>.new, <span class="n">0o644</span>)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L64" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L76" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="add_file(path:Path,klass:Fileable):self-instance-method">
+    <div class="entry-detail" id="add_file(path:Path,klass:Fileable,perms:Int16|Nil=nil):self-instance-method">
       <div class="signature">
         
-        def <strong>add_file</strong>(path : Path, klass : <a href="../LuckyTemplate/Fileable.html">Fileable</a>) : <span class="k">self</span>
+        def <strong>add_file</strong>(path : Path, klass : <a href="../LuckyTemplate/Fileable.html">Fileable</a>, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#add_file%28path%3APath%2Cklass%3AFileable%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#add_file%28path%3APath%2Cklass%3AFileable%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Adds a new file to the folder with <em>klass</em> implementing <code><a href="../LuckyTemplate/Fileable.html">Fileable</a></code> interface</p>
+<p>Optionally, provide <em>perms</em> to specify file permissions</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>path</em> contains invalid path(s)</p>
 <p>Example(s):</p>
 <pre><code class="language-crystal"><span class="k">class</span> <span class="t">Hello</span>
@@ -446,119 +462,141 @@ add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="t">Hello</sp
   <span class="k">end</span>
 <span class="k">end</span>
 
-add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="t">Hello</span>.new)</code></pre>
+add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="t">Hello</span>.new)
+
+add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="t">Hello</span>.new, <span class="n">0o644</span>)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L84" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L100" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="add_file(name:String,&amp;block:FileIO):self-instance-method">
+    <div class="entry-detail" id="add_file(name:String,perms:Int16|Nil=nil,&amp;block:FileIO):self-instance-method">
       <div class="signature">
         
-        def <strong>add_file</strong>(name : String, &block : <a href="../LuckyTemplate/FileIO.html">FileIO</a>) : <span class="k">self</span>
+        def <strong>add_file</strong>(name : String, perms : Int16 | Nil = <span class="n">nil</span>, &block : <a href="../LuckyTemplate/FileIO.html">FileIO</a>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#add_file%28name%3AString%2C%26block%3AFileIO%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#add_file%28name%3AString%2Cperms%3AInt16%7CNil%3Dnil%2C%26block%3AFileIO%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Adds a new file to the folder yielding an <code>IO</code></p>
+<p>Optionally, provide <em>perms</em> to specify file permissions</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>name</em> contains invalid path(s)</p>
 <p>Example(s):</p>
 <pre><code class="language-crystal">add_file(<span class="s">&quot;hello.txt&quot;</span>) <span class="k">do</span> <span class="o">|</span>io<span class="o">|</span>
   <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io)
 <span class="k">end</span>
 
+add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="n">0o644</span>) <span class="k">do</span> <span class="o">|</span>io<span class="o">|</span>
+  <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io)
+<span class="k">end</span>
+
 proc <span class="o">=</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">FileIO</span>.new { <span class="o">|</span>io<span class="o">|</span> <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io) }
-add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="o">&amp;</span>proc)</code></pre>
+add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="o">&amp;</span>proc)
+
+add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="n">0o644</span>, <span class="o">&amp;</span>proc)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L125" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="add_file(path:Path,&amp;block:FileIO):self-instance-method">
+    <div class="entry-detail" id="add_file(path:Path,perms:Int16|Nil=nil,&amp;block:FileIO):self-instance-method">
       <div class="signature">
         
-        def <strong>add_file</strong>(path : Path, &block : <a href="../LuckyTemplate/FileIO.html">FileIO</a>) : <span class="k">self</span>
+        def <strong>add_file</strong>(path : Path, perms : Int16 | Nil = <span class="n">nil</span>, &block : <a href="../LuckyTemplate/FileIO.html">FileIO</a>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#add_file%28path%3APath%2C%26block%3AFileIO%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#add_file%28path%3APath%2Cperms%3AInt16%7CNil%3Dnil%2C%26block%3AFileIO%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Adds a new file to the folder yielding an <code>IO</code></p>
+<p>Optionally, provide <em>perms</em> to specify file permissions</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>path</em> contains invalid path(s)</p>
 <p>Example(s):</p>
 <pre><code class="language-crystal">add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>]) <span class="k">do</span> <span class="o">|</span>io<span class="o">|</span>
   <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io)
 <span class="k">end</span>
 
+add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="n">0o644</span>) <span class="k">do</span> <span class="o">|</span>io<span class="o">|</span>
+  <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io)
+<span class="k">end</span>
+
 proc <span class="o">=</span> <span class="t">LuckyTemplate</span><span class="t">::</span><span class="t">FileIO</span>.new { <span class="o">|</span>io<span class="o">|</span> <span class="t">ECR</span>.embed(<span class="s">&quot;hello.ecr&quot;</span>, io) }
-add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="o">&amp;</span>proc)</code></pre>
+add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="o">&amp;</span>proc)
+
+add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="n">0o644</span>, <span class="o">&amp;</span>proc)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L118" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L150" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="add_file(name:String):self-instance-method">
+    <div class="entry-detail" id="add_file(name:String,perms:Int16|Nil=nil):self-instance-method">
       <div class="signature">
         
-        def <strong>add_file</strong>(name : String) : <span class="k">self</span>
+        def <strong>add_file</strong>(name : String, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#add_file%28name%3AString%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#add_file%28name%3AString%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Adds a new empty file to the folder</p>
+<p>Optionally, provide <em>perms</em> to specify file permissions</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>name</em> contains invalid path(s)</p>
 <p>Example(s):</p>
-<pre><code class="language-crystal">add_file(<span class="s">&quot;hello.txt&quot;</span>)</code></pre>
+<pre><code class="language-crystal">add_file(<span class="s">&quot;hello.txt&quot;</span>)
+
+add_file(<span class="s">&quot;hello.txt&quot;</span>, <span class="n">0o644</span>)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L130" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L166" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="add_file(path:Path):self-instance-method">
+    <div class="entry-detail" id="add_file(path:Path,perms:Int16|Nil=nil):self-instance-method">
       <div class="signature">
         
-        def <strong>add_file</strong>(path : Path) : <span class="k">self</span>
+        def <strong>add_file</strong>(path : Path, perms : Int16 | Nil = <span class="n">nil</span>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#add_file%28path%3APath%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#add_file%28path%3APath%2Cperms%3AInt16%7CNil%3Dnil%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Adds a new empty file to the folder</p>
+<p>Optionally, provide <em>perms</em> to specify file permissions</p>
 <p>Raises <code><a href="../LuckyTemplate/Error.html">Error</a></code> if <em>path</em> contains invalid path(s)</p>
 <p>Example:</p>
-<pre><code class="language-crystal">add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>])</code></pre>
+<pre><code class="language-crystal">add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>])
+
+add_file(<span class="t">Path</span>[<span class="s">&quot;./hello.txt&quot;</span>], <span class="n">0o644</span>)</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L142" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L182" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -589,7 +627,7 @@ a/b/c/hello.txt</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L188" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L228" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -620,7 +658,7 @@ a/b/c/hello.txt</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L244" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L284" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -651,7 +689,7 @@ a/b/c/hello.txt</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L268" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L308" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -680,7 +718,7 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L290" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L330" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -709,7 +747,7 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L310" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L350" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -738,7 +776,7 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L330" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L370" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -759,7 +797,7 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L365" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L405" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -790,7 +828,7 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L347" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L387" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -812,7 +850,7 @@ a/b/c/d</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/luckyframework/lucky_template/blob/54d55c76b16cdc049a8d8c2a90fbf8d77312b889/src/lucky_template/folder.cr#L360" target="_blank">View source</a>]
+          [<a href="https://github.com/luckyframework/lucky_template/blob/35db457ab4c15e414666a709be318f6e3e9d701d/src/lucky_template/folder.cr#L400" target="_blank">View source</a>]
         
       </div>
     </div>
