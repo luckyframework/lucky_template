@@ -414,9 +414,9 @@ describe LuckyTemplate do
       end
 
       context "with permissions" do
-        it "adds executable file" do
+        it "adds file" do
           filename = "hello.bash"
-          file_perms = 0o755_i16
+          file_perms = {{ flag?(:windows) ? 0o666_i16 : 0o755_i16 }}
           LuckyTemplate.write!(Path["."]) do |folder|
             folder.add_file(filename, <<-BASH, file_perms)
             #!/usr/bin/env bash
@@ -430,9 +430,9 @@ describe LuckyTemplate do
           File.info(Path[filename]).permissions.value.should eq(file_perms)
         end
 
-        it "adds executable file with block" do
+        it "adds file with block" do
           filename = "hello.bash"
-          file_perms = 0o755_i16
+          file_perms = {{ flag?(:windows) ? 0o666_i16 : 0o755_i16 }}
           LuckyTemplate.write!(Path["."]) do |folder|
             folder.add_file(filename, file_perms) do |io|
               io << "#!/usr/bin/env bash"
@@ -440,16 +440,17 @@ describe LuckyTemplate do
               io << "echo Hello World"
             end
           end
-          File.read(Path[filename]).should eq(<<-BASH)
-          #!/usr/bin/env bash
-          echo Hello World
-          BASH
+          File.read(Path[filename]).should eq(String.build { |io|
+            io << "#!/usr/bin/env bash"
+            io << '\n'
+            io << "echo Hello World"
+          })
           File.info(Path[filename]).permissions.value.should eq(file_perms)
         end
 
-        it "adds empty executable file" do
+        it "adds empty file" do
           filename = "hello.bash"
-          file_perms = 0o755_i16
+          file_perms = {{ flag?(:windows) ? 0o666_i16 : 0o755_i16 }}
           LuckyTemplate.write!(Path["."]) do |folder|
             folder.add_file(filename, file_perms)
           end
@@ -457,9 +458,9 @@ describe LuckyTemplate do
           File.info(Path[filename]).permissions.value.should eq(file_perms)
         end
 
-        it "adds executable file from Int16#to_s" do
+        it "adds file from Int16#to_s" do
           filename = "hello.bash"
-          file_perms = 0o755_i16
+          file_perms = {{ flag?(:windows) ? 0o666_i16 : 0o755_i16 }}
           LuckyTemplate.write!(Path["."]) do |folder|
             folder.add_file(filename, file_perms.to_s, file_perms)
           end
