@@ -15,6 +15,8 @@ module LuckyTemplate
 
     # Adds a new file to the folder with _content_
     #
+    # Optionally, provide _perms_ to specify file permissions
+    #
     # Raises `Error` if _name_ contains invalid path(s)
     #
     # Examples(s):
@@ -24,12 +26,16 @@ module LuckyTemplate
     # add_file("hello.txt", <<-TEXT)
     # hello world
     # TEXT
+    #
+    # add_file("hello.txt", "hello world", 0o644)
     # ```
-    def add_file(name : String, content : String) : self
-      add_file(Path[name], content)
+    def add_file(name : String, content : String, perms : Int16? = nil) : self
+      add_file(Path[name], content, perms)
     end
 
     # Adds a new file to the folder with _content_
+    #
+    # Optionally, provide _perms_ to specify file permissions
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
@@ -40,12 +46,16 @@ module LuckyTemplate
     # add_file(Path["./hello.txt"], <<-TEXT)
     # hello world
     # TEXT
+    #
+    # add_file(Path["./hello.txt"], "hello world", 0o644)
     # ```
-    def add_file(path : Path, content : String) : self
-      add_file(path, File.new(content))
+    def add_file(path : Path, content : String, perms : Int16? = nil) : self
+      add_file(path, File.new(content, perms))
     end
 
     # Adds a new file to the folder with _klass_ implementing `Fileable` interface
+    #
+    # Optionally, provide _perms_ to specify file permissions
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
@@ -60,12 +70,16 @@ module LuckyTemplate
     # end
     #
     # add_file("hello.txt", Hello.new)
+    #
+    # add_file("hello.txt", Hello.new, 0o644)
     # ```
-    def add_file(name : String, klass : Fileable) : self
-      add_file(Path[name], klass)
+    def add_file(name : String, klass : Fileable, perms : Int16? = nil) : self
+      add_file(Path[name], klass, perms)
     end
 
     # Adds a new file to the folder with _klass_ implementing `Fileable` interface
+    #
+    # Optionally, provide _perms_ to specify file permissions
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
@@ -80,12 +94,16 @@ module LuckyTemplate
     # end
     #
     # add_file(Path["./hello.txt"], Hello.new)
+    #
+    # add_file(Path["./hello.txt"], Hello.new, 0o644)
     # ```
-    def add_file(path : Path, klass : Fileable) : self
-      add_file(path, File.new(klass))
+    def add_file(path : Path, klass : Fileable, perms : Int16? = nil) : self
+      add_file(path, File.new(klass, perms))
     end
 
     # Adds a new file to the folder yielding an `IO`
+    #
+    # Optionally, provide _perms_ to specify file permissions
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
@@ -95,14 +113,22 @@ module LuckyTemplate
     #   ECR.embed("hello.ecr", io)
     # end
     #
+    # add_file("hello.txt", 0o644) do |io|
+    #   ECR.embed("hello.ecr", io)
+    # end
+    #
     # proc = LuckyTemplate::FileIO.new { |io| ECR.embed("hello.ecr", io) }
     # add_file("hello.txt", &proc)
+    #
+    # add_file("hello.txt", 0o644, &proc)
     # ```
-    def add_file(name : String, &block : FileIO) : self
-      add_file(Path[name], &block)
+    def add_file(name : String, perms : Int16? = nil, &block : FileIO) : self
+      add_file(Path[name], perms, &block)
     end
 
     # Adds a new file to the folder yielding an `IO`
+    #
+    # Optionally, provide _perms_ to specify file permissions
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
@@ -112,35 +138,49 @@ module LuckyTemplate
     #   ECR.embed("hello.ecr", io)
     # end
     #
+    # add_file(Path["./hello.txt"], 0o644) do |io|
+    #   ECR.embed("hello.ecr", io)
+    # end
+    #
     # proc = LuckyTemplate::FileIO.new { |io| ECR.embed("hello.ecr", io) }
     # add_file(Path["./hello.txt"], &proc)
+    #
+    # add_file(Path["./hello.txt"], 0o644, &proc)
     # ```
-    def add_file(path : Path, &block : FileIO) : self
-      add_file(path, File.new(block))
+    def add_file(path : Path, perms : Int16? = nil, &block : FileIO) : self
+      add_file(path, File.new(block, perms))
     end
 
     # Adds a new empty file to the folder
+    #
+    # Optionally, provide _perms_ to specify file permissions
     #
     # Raises `Error` if _name_ contains invalid path(s)
     #
     # Example(s):
     # ```
     # add_file("hello.txt")
+    #
+    # add_file("hello.txt", 0o644)
     # ```
-    def add_file(name : String) : self
-      add_file(Path[name])
+    def add_file(name : String, perms : Int16? = nil) : self
+      add_file(Path[name], perms: perms)
     end
 
     # Adds a new empty file to the folder
+    #
+    # Optionally, provide _perms_ to specify file permissions
     #
     # Raises `Error` if _path_ contains invalid path(s)
     #
     # Example:
     # ```
     # add_file(Path["./hello.txt"])
+    #
+    # add_file(Path["./hello.txt"], 0o644)
     # ```
-    def add_file(path : Path) : self
-      add_file(path, File.new(nil))
+    def add_file(path : Path, perms : Int16? = nil) : self
+      add_file(path, File.new(nil, perms))
     end
 
     private def add_file(path : Path, file : File) : self

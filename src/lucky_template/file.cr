@@ -57,7 +57,9 @@ module LuckyTemplate
 
   # :nodoc:
   class File
-    protected def initialize(@file : FileType)
+    property perms : Int16?
+
+    protected def initialize(@file : FileType, @perms)
     end
 
     # Appends file contents to `IO`

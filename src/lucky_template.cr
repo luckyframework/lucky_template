@@ -71,6 +71,9 @@ module LuckyTemplate
         ::File.open(path, "w") do |io|
           file.to_s(io)
         end
+        if perms = file.perms
+          ::File.chmod(path, perms)
+        end
       in Folder
         Dir.mkdir_p(path)
         write_folder!(path, file)
