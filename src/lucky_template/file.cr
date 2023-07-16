@@ -57,7 +57,7 @@ module LuckyTemplate
 
   # :nodoc:
   class File
-    property perms : Int16?
+    getter! perms : Int16
 
     protected def initialize(@file : FileType, @perms)
     end
