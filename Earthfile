@@ -3,7 +3,7 @@ FROM crystallang/crystal:latest
 WORKDIR /workdir
 
 all:
-    BUILD +test
+    BUILD --platform=linux/amd64--platform=linux/arm64 +test
 
 deps:
     RUN apt-get update \
