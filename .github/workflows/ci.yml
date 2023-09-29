@@ -34,7 +34,7 @@ jobs:
       - name: Earthly version
         run: earthly --version
       - name: Run build
-        run: earthly +all
+        run: earthly +ci
 
   windows-specs:
     runs-on: windows-latest
