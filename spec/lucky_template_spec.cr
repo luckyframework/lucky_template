@@ -141,7 +141,7 @@ describe LuckyTemplate do
     end
 
     it "raises if folder is locked" do
-      folder = LuckyTemplate.write!(Path["."]) do |dir|
+      LuckyTemplate.write!(Path["."]) do |dir|
         expect_raises(LuckyTemplate::Error, "folder is locked") do
           LuckyTemplate.validate!(Path["."], dir)
         end
